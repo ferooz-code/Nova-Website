@@ -1,0 +1,11 @@
+.DS_Store
+.gh-config/
+
+site/node_modules/
+site/dist/
+site/.npm-cache/
+site/source-captures/
+site/screenshots/
+
+*.log
+*.local
