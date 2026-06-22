@@ -15,7 +15,12 @@ import {
 import pages from "./data/pages.json";
 import assetMap from "./data/asset-map.json";
 
-const media = (url) => assetMap[url];
+const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, "");
+const withBasePath = (path) => `${BASE_PATH}${path}`;
+const media = (url) => {
+  const path = assetMap[url];
+  return path ? withBasePath(path) : undefined;
+};
 
 const ASSETS = {
   novaLogo: media("https://novasolutionstech.com/wp-content/uploads/2024/01/nova-tech-9-2.png"),
@@ -110,13 +115,16 @@ const installationCategories = [
 ];
 
 function currentPath() {
-  return window.location.pathname.replace(/\/$/, "") || "/";
+  const pathname = BASE_PATH && window.location.pathname.startsWith(BASE_PATH)
+    ? window.location.pathname.slice(BASE_PATH.length)
+    : window.location.pathname;
+  return pathname.replace(/\/$/, "") || "/";
 }
 
 function SiteLink({ to, navigate, children, className = "", onClick }) {
   return (
     <a
-      href={to}
+      href={withBasePath(to)}
       className={className}
       onClick={(event) => {
         event.preventDefault();
@@ -614,7 +622,7 @@ export function App() {
 
   const navigate = (to) => {
     if (to === path) return;
-    window.history.pushState({}, "", to);
+    window.history.pushState({}, "", withBasePath(to));
     setPath(to);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
