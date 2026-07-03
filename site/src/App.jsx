@@ -703,7 +703,7 @@ function Footer({ navigate, content, adminEnabled }) {
   return (
     <footer className="site-footer">
       <div className="page-shell footer-main">
-        <div className="footer-brand"><img src={resolveAsset(content.brand.logo) || ASSETS.novaLogo} alt={content.brand.name} /><p>Exclusive global sales and distribution partner for PURIUM clean-air products and Smart Safeguards Gate technology.</p></div>
+        <div className="footer-brand"><img src={resolveAsset(content.brand.logo) || ASSETS.novaLogo} alt={content.brand.name} /><p>Exclusive global sales and distribution partner for PURIUM clean-air products and Smart Safeguards Gate technology.</p><a className="parent-company-link" href={content.brand.parentCompanyUrl} target="_blank" rel="noreferrer">{content.brand.parentCompanyLabel}<ArrowUpRight size={14} /></a></div>
         <div><span className="footer-label">Explore</span><SiteLink to="/products/overview" navigate={navigate}>Products</SiteLink><SiteLink to="/technology/core" navigate={navigate}>Technology</SiteLink><SiteLink to="/installations/7" navigate={navigate}>Installations</SiteLink></div>
         <div><span className="footer-label">Support</span><SiteLink to="/services/care" navigate={navigate}>Care service</SiteLink><SiteLink to="/contact/service" navigate={navigate}>After-sales service</SiteLink><SiteLink to="/contact/purchase" navigate={navigate}>Purchase inquiry</SiteLink></div>
         <div><span className="footer-label">Nova headquarters</span><p>{content.contact.address.split("\n").map((line) => <span key={line}>{line}<br /></span>)}</p><a href={content.contact.website} target="_blank" rel="noreferrer">Nova website</a></div>
