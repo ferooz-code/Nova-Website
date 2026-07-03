@@ -1,0 +1,85 @@
+{
+  "brand": {
+    "name": "Nova Solutions Tech",
+    "partnerLabel": "EXCLUSIVE GLOBAL SALES & DISTRIBUTION PARTNER FOR PURIUM",
+    "logo": "/media/nova/nova-tech-9-2-37be98d5d1680b66.png"
+  },
+  "home": {
+    "eyebrow": "PURIUM PRODUCT & TECHNOLOGY",
+    "headline": ["Cleaner air.", "Proven technology.", "Global access."],
+    "description": "Explore PURIUM’s patented Smart Safeguards Gate, intelligent air-quality platform and product portfolio—available globally through Nova Solutions Tech.",
+    "heroImage": "/media/purium/section1Visual1-1-5ac1c707d152ff68.jpg",
+    "technologyHeading": "Cyclone Turbo Air Shot",
+    "technologyCopy": "A precision-engineered air curtain helps prevent contaminants from moving deeper into a facility while supporting powerful circulation and filtration.",
+    "productsHeading": "PURIUM solutions for every environment.",
+    "productsCopy": "Compare walk-through gates, large-facility systems, compact indoor solutions and specialized disease-control configurations."
+  },
+  "company": {
+    "title": "Nova Solutions Tech",
+    "eyebrow": "EXCLUSIVE GLOBAL SALES & DISTRIBUTION",
+    "summary": "Nova Solutions Tech is PURIUM’s exclusive global sales and distribution partner, connecting its patented clean-air products and technologies with customers, integrators and regional partners worldwide.",
+    "paragraphs": [
+      "Nova leads international product promotion, commercial development, sales coordination and distribution for PURIUM solutions. We help organizations identify the right system for their facility, region and operational requirements.",
+      "Our role is to make PURIUM technology accessible beyond the manufacturer’s home market. Nova coordinates product consultation, proposals, market partnerships, delivery planning and long-term customer support through a single global point of contact.",
+      "From public facilities and healthcare environments to education, transportation and commercial spaces, Nova works with customers to translate PURIUM’s proven technology into practical deployments."
+    ]
+  },
+  "contact": {
+    "address": "9970 148 Street\nSurrey, BC V3R 0P9\nCanada",
+    "website": "https://novasolutionstech.com",
+    "inquiryPortal": "https://novasolutionstech.com/contact-us/",
+    "contactLabel": "Nova global sales and support",
+    "intro": "Tell us about your facility, market or partnership opportunity. Every commercial, product and service inquiry is handled by Nova Solutions Tech."
+  },
+  "pageOverrides": {
+    "/about/company": {
+      "title": "Nova Solutions Tech",
+      "eyebrow": "ABOUT NOVA",
+      "category": "About",
+      "headings": ["PURIUM’s exclusive global sales and distribution partner"],
+      "paragraphs": [
+        "Nova Solutions Tech is PURIUM’s exclusive global sales and distribution partner, connecting its patented clean-air products and technologies with customers, integrators and regional partners worldwide.",
+        "Nova leads international product promotion, commercial development, sales coordination and distribution for PURIUM solutions. We help organizations identify the right system for their facility, region and operational requirements.",
+        "Our role is to make PURIUM technology accessible beyond the manufacturer’s home market. Nova coordinates product consultation, proposals, market partnerships, delivery planning and long-term customer support through a single global point of contact."
+      ]
+    },
+    "/about/location": {
+      "title": "Contact Nova",
+      "eyebrow": "GLOBAL SALES & DISTRIBUTION",
+      "category": "About",
+      "headings": ["Nova Solutions Tech headquarters"],
+      "paragraphs": [
+        "9970 148 Street\nSurrey, British Columbia V3R 0P9\nCanada",
+        "For product consultation, international distribution, proposals, delivery planning or after-sales support, contact Nova Solutions Tech through the secure inquiry portal."
+      ],
+      "media": []
+    },
+    "/contact/purchase": {
+      "title": "Product & Sales Inquiry",
+      "eyebrow": "CONTACT NOVA",
+      "category": "Products",
+      "headings": ["Talk with Nova’s global product team"],
+      "paragraphs": ["All PURIUM product, proposal and distribution inquiries are handled by Nova Solutions Tech."]
+    },
+    "/contact/service": {
+      "title": "Service & Technical Support",
+      "eyebrow": "CONTACT NOVA",
+      "category": "Services",
+      "headings": ["Nova-coordinated customer support"],
+      "paragraphs": ["Send product, installation and after-sales questions directly to Nova Solutions Tech."]
+    },
+    "/privacy": {
+      "title": "Privacy Policy",
+      "eyebrow": "NOVA SOLUTIONS TECH",
+      "category": "Policy",
+      "headings": ["Privacy and inquiry data"],
+      "paragraphs": [
+        "Nova Solutions Tech uses information submitted through this website only to respond to product, distribution, installation and support inquiries.",
+        "Inquiry information may include your name, organization, business contact details, region and message. Nova limits access to personnel and service partners who need the information to respond to your request.",
+        "To request access, correction or deletion of inquiry information, use Nova’s secure contact portal and select Privacy request."
+      ],
+      "media": []
+    }
+  },
+  "videos": []
+}

@@ -18,7 +18,6 @@ function routeFor(sourceUrl) {
   const path = url.pathname;
   const exact = {
     "/en/index.php": "/",
-    "/en/sub/company/greeting.php": "/about/ceo",
     "/en/sub/company/overview/summary.php": "/about/company",
     "/en/sub/company/overview/awards.php": "/about/awards",
     "/en/sub/company/overview/corporate.php": "/about/certifications",
@@ -70,7 +69,14 @@ function groupFor(route) {
 
 const excludedMedia = /logo_new|footerIcon|snsIcon|favicon|pointSmall|pointLarge|subVisual|subBg|topBtn|homeIcon|arr_down|inline-svg/i;
 
-const pages = rawPages.map((page) => {
+function routeContactThroughNova(value) {
+  if (typeof value !== "string") return value;
+  return value
+    .replace(/[\w.+-]+@purium\.kr/gi, "Nova secure inquiry portal")
+    .replace(/\+82-2-881-5544/g, "Nova Solutions Tech global support");
+}
+
+const pages = rawPages.filter((page) => !page.sourceUrl.includes("/company/greeting.php")).map((page) => {
   const route = routeFor(page.sourceUrl);
   const mediaUrls = [
     ...(page.images ?? []).map((image) => image.src),
@@ -88,9 +94,9 @@ const pages = rawPages.map((page) => {
     eyebrow: headings[0] || category.toUpperCase(),
     title: headings[1] || headings[0] || "PURIUM",
     headings: headings.slice(2),
-    paragraphs: page.p ?? [],
-    lists: page.lists ?? [],
-    tables: page.tables ?? [],
+    paragraphs: (page.p ?? []).map(routeContactThroughNova),
+    lists: (page.lists ?? []).map(routeContactThroughNova),
+    tables: (page.tables ?? []).map((table) => table.map((row) => row.map(routeContactThroughNova))),
     media,
     sourceUrl: page.sourceUrl,
   };

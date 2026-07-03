@@ -105,47 +105,6 @@
     "sourceUrl": "https://purium.kr/en/index.php"
   },
   {
-    "route": "/about/ceo",
-    "category": "About",
-    "eyebrow": "COMPANY",
-    "title": "PURIUM: the new normal for a post-COVID world",
-    "headings": [
-      "Safer, cleaner spaces",
-      "PURIUM Smart Safeguards Gate",
-      "Growing as a global enterprise together with K-Disease Control"
-    ],
-    "paragraphs": [
-      "PURIUM's technology and efforts become new standards and values for the era we will live in.",
-      "PURIUM is the developers and manufacturer of the <Smart Safeguards Gate>,\nthe world's first walk-through air purifying system. Under the vision of “Safer,\ncleaner spaces”, we are committed to bettering safety and sanitation in public spaces.",
-      "The “PURIUM Smart Safeguards Gate” launched by PURIUM Co., Ltd. in 2019 represents\na convergence of air purification technologies, artificial intelligence (AI) and the Internet of Things (IoT).\nPURIUM prevents ingress of (ultra) fine particulate matter from the outside environment, circulates indoor air,\nand employs LED disinfecting lamps, HEPA filters and natural phytoncides to keep the indoor environment safe\nfrom microbes and viruses. PURIUM is protected by patents, design and trademark rights, and is a KC-certified,\nICT quality-certified, GOOD DESIGN award-winning industrial convergence product. In 2019,\nPURIUM was designated an ‘Innovative Prototype’ by the Public Procurement Service.",
-      "Korea’s remarkably successful efforts for COVID-19 control and containment have established the country as a global\npublic health leader. Our new products are intended to uphold and further Korea’s reputation, while establishing\nour name as a global enterprise in air purification. “PURIUM Premium” was launched in 2020 to meet the needs\nof the post-COVID world, and incorporates a range of disease control products (thermal imaging cameras for\nfever detection and QR code-based visitor registration systems for access to multi-use facilities) into one.",
-      "We promise tireless R&D and aggressive investment into air purification technologies and products to make all\nliving spaces safer and cleaner. Through effective communication with customers and attentive detail\nto changing customer needs, we intent to establish “PURIUM” as the world's leading air purification brand.",
-      "Thank you.",
-      "Nam, Ho Jin, Ph.D, President and CEO"
-    ],
-    "lists": [],
-    "tables": [],
-    "media": [
-      {
-        "source": "https://purium.kr/img/sub/greetingImg1-1.png",
-        "local": "/media/purium/greetingImg1-1-b6c1e0d684ab5248.png"
-      },
-      {
-        "source": "https://purium.kr/img/sub/greetingImg1-2.png",
-        "local": "/media/purium/greetingImg1-2-f6bba75a9f1b8219.png"
-      },
-      {
-        "source": "https://purium.kr/img/sub/greetingImg2.png",
-        "local": "/media/purium/greetingImg2-c6e015e7722bc7c9.png"
-      },
-      {
-        "source": "https://purium.kr/img/sub/greetingImg3.png",
-        "local": "/media/purium/greetingImg3-1bda00a0b555cd93.png"
-      }
-    ],
-    "sourceUrl": "https://purium.kr/en/sub/company/greeting.php"
-  },
-  {
     "route": "/about/company",
     "category": "About",
     "eyebrow": "COMPANY",
@@ -187,7 +146,7 @@
         ],
         [
           "Contact information",
-          "E-mail : sales@purium.kr\nTel. No. : +82-2-881-5544"
+          "E-mail : Nova secure inquiry portal\nTel. No. : Nova Solutions Tech global support"
         ],
         [
           "Key products",
@@ -385,8 +344,8 @@
     ],
     "paragraphs": [
       "Reservation necessary for teams of 5 or more",
-      "+82-2-881-5544",
-      "sales@purium.kr",
+      "Nova Solutions Tech global support",
+      "Nova secure inquiry portal",
       "09:00 - 18:00 Weekdays / 12:00 - 13:00 Lunch hours",
       "Closed weekends and public holidays"
     ],
@@ -2455,7 +2414,7 @@
       "5. Provision of Personal information\nBasically, the company shall not provide users' personal information to the outside. However, several exceptions are made in the following cases.",
       "- If necessary for product delivery, installation, or A/S (name, mobile phone number, installation area address)\n- If the users have agreed in advance",
       "6. Civil service regarding personal information\nIn order to protect customers' personal information and handle complaints related to personal information, the company shall designate the related departments and personal information management managers as follows.",
-      "Person in charge of personal information management\n- Name : Administrator\n- E-mail : sales@purium.kr"
+      "Person in charge of personal information management\n- Name : Administrator\n- E-mail : Nova secure inquiry portal"
     ],
     "lists": [],
     "tables": [
@@ -2490,7 +2449,7 @@
         ],
         [
           "Privacy Poricy *",
-          "1. Items of personal information collected\nThe company shall collect the following personal information for membership registration, counseling, and service application.\n\n- Collection items : name, phone number, mobile phone number, address, access log.\n- How to collect personal information : Purchase inquiries, Contact us\n\n2. Purpose for collection and use of personal information\nThe company shall use the collected personal information for the following purposes.\n\n- Implementation of a contract on service provision and payment of charges according to service provision and payment of charges.\n- Membership management - Identification based on use of membership services.\n\n3. Period of retention and use of personal information\nBasically, the company shall destroy the personal information without delay after the purpose of collecting and using personal information is achieved. However, the following information will be preserved for the period specified for the following reasons.\n\nA. Reasons for holding information according to the company's internal policy\n- Records of illegal use record\n- Reason for preservation : Prevention of illegal use\n- Preservation period : 1 year\n\nB. Reasons for holding information under relevant laws and regulations\n- Records of contract or withdrawal of subscription\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 5 years\n\n- Records of payment and supply of goods, etc.\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 5 years\n\n- Records of Electronic Financial Transactions\n- Reasons for preservation: Electronic Financial Transactions Act\n- Preservation period: 5 years\n\n- Records of consumer complaints or disputes\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 3 years\n\n4. Procedures and methods for destroying personal information\nGenerally, the company shall destroy the information without delay after the purpose of collecting and using personal information is achieved. The procedure and method of destruction are as follows.\n\n- Destruction procedure\n- The information entered by the member for membership shall be transferred to a separate DB (separate document box in the case of paper) after achievement of our desired purposes and destroyed after storage for a certain period of time for information protection reasons (refer to retention and usage period) in accordance with our policies and other related laws. The personal information transferred to a separate DB shall be not used for any purpose other than being held unless it is legal.\n\n- Destruction Method\n- Personal information stored in electronic file formats shall be deleted using a technical method that cannot repeat records. - Personal information printed on paper shall be crushed with a grinder or destroyed through incineration.\n\n5. Provision of Personal information\nBasically, the company shall not provide users' personal information to the outside. However, several exceptions are made in the following cases.\n\n- If necessary for product delivery, installation, or A/S (name, mobile phone number, installation area address)\n- If the users have agreed in advance\n\n6. Civil service regarding personal information\nIn order to protect customers' personal information and handle complaints related to personal information, the company shall designate the related departments and personal information management managers as follows.\n\nPerson in charge of personal information management\n- Name : Administrator\n- E-mail : sales@purium.kr\n\nAgree"
+          "1. Items of personal information collected\nThe company shall collect the following personal information for membership registration, counseling, and service application.\n\n- Collection items : name, phone number, mobile phone number, address, access log.\n- How to collect personal information : Purchase inquiries, Contact us\n\n2. Purpose for collection and use of personal information\nThe company shall use the collected personal information for the following purposes.\n\n- Implementation of a contract on service provision and payment of charges according to service provision and payment of charges.\n- Membership management - Identification based on use of membership services.\n\n3. Period of retention and use of personal information\nBasically, the company shall destroy the personal information without delay after the purpose of collecting and using personal information is achieved. However, the following information will be preserved for the period specified for the following reasons.\n\nA. Reasons for holding information according to the company's internal policy\n- Records of illegal use record\n- Reason for preservation : Prevention of illegal use\n- Preservation period : 1 year\n\nB. Reasons for holding information under relevant laws and regulations\n- Records of contract or withdrawal of subscription\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 5 years\n\n- Records of payment and supply of goods, etc.\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 5 years\n\n- Records of Electronic Financial Transactions\n- Reasons for preservation: Electronic Financial Transactions Act\n- Preservation period: 5 years\n\n- Records of consumer complaints or disputes\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 3 years\n\n4. Procedures and methods for destroying personal information\nGenerally, the company shall destroy the information without delay after the purpose of collecting and using personal information is achieved. The procedure and method of destruction are as follows.\n\n- Destruction procedure\n- The information entered by the member for membership shall be transferred to a separate DB (separate document box in the case of paper) after achievement of our desired purposes and destroyed after storage for a certain period of time for information protection reasons (refer to retention and usage period) in accordance with our policies and other related laws. The personal information transferred to a separate DB shall be not used for any purpose other than being held unless it is legal.\n\n- Destruction Method\n- Personal information stored in electronic file formats shall be deleted using a technical method that cannot repeat records. - Personal information printed on paper shall be crushed with a grinder or destroyed through incineration.\n\n5. Provision of Personal information\nBasically, the company shall not provide users' personal information to the outside. However, several exceptions are made in the following cases.\n\n- If necessary for product delivery, installation, or A/S (name, mobile phone number, installation area address)\n- If the users have agreed in advance\n\n6. Civil service regarding personal information\nIn order to protect customers' personal information and handle complaints related to personal information, the company shall designate the related departments and personal information management managers as follows.\n\nPerson in charge of personal information management\n- Name : Administrator\n- E-mail : Nova secure inquiry portal\n\nAgree"
         ],
         [
           "File",
@@ -2643,7 +2602,7 @@
       "5. Provision of Personal information\nBasically, the company shall not provide users' personal information to the outside. However, several exceptions are made in the following cases.",
       "- If necessary for product delivery, installation, or A/S (name, mobile phone number, installation area address)\n- If the users have agreed in advance",
       "6. Civil service regarding personal information\nIn order to protect customers' personal information and handle complaints related to personal information, the company shall designate the related departments and personal information management managers as follows.",
-      "Person in charge of personal information management\n- Name : Administrator\n- E-mail : sales@purium.kr"
+      "Person in charge of personal information management\n- Name : Administrator\n- E-mail : Nova secure inquiry portal"
     ],
     "lists": [],
     "tables": [
@@ -2682,7 +2641,7 @@
         ],
         [
           "Privacy Poricy *",
-          "1. Items of personal information collected\nThe company shall collect the following personal information for membership registration, counseling, and service application.\n\n- Collection items : name, phone number, mobile phone number, address, access log.\n- How to collect personal information : Purchase inquiries, Contact us\n\n2. Purpose for collection and use of personal information\nThe company shall use the collected personal information for the following purposes.\n\n- Implementation of a contract on service provision and payment of charges according to service provision and payment of charges.\n- Membership management - Identification based on use of membership services.\n\n3. Period of retention and use of personal information\nBasically, the company shall destroy the personal information without delay after the purpose of collecting and using personal information is achieved. However, the following information will be preserved for the period specified for the following reasons.\n\nA. Reasons for holding information according to the company's internal policy\n- Records of illegal use record\n- Reason for preservation : Prevention of illegal use\n- Preservation period : 1 year\n\nB. Reasons for holding information under relevant laws and regulations\n- Records of contract or withdrawal of subscription\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 5 years\n\n- Records of payment and supply of goods, etc.\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 5 years\n\n- Records of Electronic Financial Transactions\n- Reasons for preservation: Electronic Financial Transactions Act\n- Preservation period: 5 years\n\n- Records of consumer complaints or disputes\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 3 years\n\n4. Procedures and methods for destroying personal information\nGenerally, the company shall destroy the information without delay after the purpose of collecting and using personal information is achieved. The procedure and method of destruction are as follows.\n\n- Destruction procedure\n- The information entered by the member for membership shall be transferred to a separate DB (separate document box in the case of paper) after achievement of our desired purposes and destroyed after storage for a certain period of time for information protection reasons (refer to retention and usage period) in accordance with our policies and other related laws. The personal information transferred to a separate DB shall be not used for any purpose other than being held unless it is legal.\n\n- Destruction Method\n- Personal information stored in electronic file formats shall be deleted using a technical method that cannot repeat records. - Personal information printed on paper shall be crushed with a grinder or destroyed through incineration.\n\n5. Provision of Personal information\nBasically, the company shall not provide users' personal information to the outside. However, several exceptions are made in the following cases.\n\n- If necessary for product delivery, installation, or A/S (name, mobile phone number, installation area address)\n- If the users have agreed in advance\n\n6. Civil service regarding personal information\nIn order to protect customers' personal information and handle complaints related to personal information, the company shall designate the related departments and personal information management managers as follows.\n\nPerson in charge of personal information management\n- Name : Administrator\n- E-mail : sales@purium.kr\n\nAgree"
+          "1. Items of personal information collected\nThe company shall collect the following personal information for membership registration, counseling, and service application.\n\n- Collection items : name, phone number, mobile phone number, address, access log.\n- How to collect personal information : Purchase inquiries, Contact us\n\n2. Purpose for collection and use of personal information\nThe company shall use the collected personal information for the following purposes.\n\n- Implementation of a contract on service provision and payment of charges according to service provision and payment of charges.\n- Membership management - Identification based on use of membership services.\n\n3. Period of retention and use of personal information\nBasically, the company shall destroy the personal information without delay after the purpose of collecting and using personal information is achieved. However, the following information will be preserved for the period specified for the following reasons.\n\nA. Reasons for holding information according to the company's internal policy\n- Records of illegal use record\n- Reason for preservation : Prevention of illegal use\n- Preservation period : 1 year\n\nB. Reasons for holding information under relevant laws and regulations\n- Records of contract or withdrawal of subscription\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 5 years\n\n- Records of payment and supply of goods, etc.\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 5 years\n\n- Records of Electronic Financial Transactions\n- Reasons for preservation: Electronic Financial Transactions Act\n- Preservation period: 5 years\n\n- Records of consumer complaints or disputes\n- Reasons for preservation : Act on the Protection of Consumers in Electronic Commerce\n- Preservation period : 3 years\n\n4. Procedures and methods for destroying personal information\nGenerally, the company shall destroy the information without delay after the purpose of collecting and using personal information is achieved. The procedure and method of destruction are as follows.\n\n- Destruction procedure\n- The information entered by the member for membership shall be transferred to a separate DB (separate document box in the case of paper) after achievement of our desired purposes and destroyed after storage for a certain period of time for information protection reasons (refer to retention and usage period) in accordance with our policies and other related laws. The personal information transferred to a separate DB shall be not used for any purpose other than being held unless it is legal.\n\n- Destruction Method\n- Personal information stored in electronic file formats shall be deleted using a technical method that cannot repeat records. - Personal information printed on paper shall be crushed with a grinder or destroyed through incineration.\n\n5. Provision of Personal information\nBasically, the company shall not provide users' personal information to the outside. However, several exceptions are made in the following cases.\n\n- If necessary for product delivery, installation, or A/S (name, mobile phone number, installation area address)\n- If the users have agreed in advance\n\n6. Civil service regarding personal information\nIn order to protect customers' personal information and handle complaints related to personal information, the company shall designate the related departments and personal information management managers as follows.\n\nPerson in charge of personal information management\n- Name : Administrator\n- E-mail : Nova secure inquiry portal\n\nAgree"
         ],
         [
           "File",
@@ -2986,7 +2945,7 @@
     "paragraphs": [
       "PURIUM gives due consideration for society’s sound ethical expectations and values in corporate decision-making processes. We are implementing a healthy and equitable corporate culture with clearly defined legal accountability in line with social sensibilities and the purport of ethical management policy. PURIUM enforces ethical management practice guidelines for all employees and executives.",
       "+82-10-8992-6501 (POC)",
-      "jjomin22@purium.kr",
+      "Nova secure inquiry portal",
       "+82-2-6442-2174",
       "Management Planning Team, PURIUM Co. Ltd., 143, Yeongmun-ro 29beon-gil, Pogok-eup, Cheoin-gu, Yongin-si, Gyeonggi-do 17040"
     ],
@@ -3005,7 +2964,7 @@
       "Should whistle-blowers wish to receive an official reply to reports filed, a telephone number, e-mail address or other contact information must be provided.",
       "For real-name reports, PURIUM protects reporter identity and report details under strictest confidentiality.",
       "+82-10-8992-6501 (POC)",
-      "jjomin22@purium.kr",
+      "Nova secure inquiry portal",
       "+82-2-6442-2174",
       "Management Planning Team, PURIUM Co. Ltd., 143, Yeongmun-ro 29beon-gil, Pogok-eup, Cheoin-gu, Yongin-si, Gyeonggi-do 17040"
     ],

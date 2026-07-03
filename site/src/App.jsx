@@ -14,12 +14,18 @@ import {
 } from "lucide-react";
 import pages from "./data/pages.json";
 import assetMap from "./data/asset-map.json";
+import defaultSiteContent from "./data/site-content.json";
+import { Admin } from "./Admin.jsx";
 
 const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, "");
 const withBasePath = (path) => `${BASE_PATH}${path}`;
+const resolveAsset = (path) => {
+  if (!path || /^(https?:|data:|blob:)/i.test(path)) return path;
+  return withBasePath(path.startsWith("/") ? path : `/${path}`);
+};
 const media = (url) => {
   const path = assetMap[url];
-  return path ? withBasePath(path) : undefined;
+  return path ? resolveAsset(path) : undefined;
 };
 
 const ASSETS = {
@@ -38,14 +44,13 @@ const navGroups = [
   {
     label: "About",
     items: [
-      ["Message from the CEO", "/about/ceo"],
-      ["Company overview", "/about/company"],
+      ["About Nova", "/about/company"],
       ["Awards", "/about/awards"],
       ["Enterprise certifications", "/about/certifications"],
       ["Identity", "/about/identity"],
       ["Vision", "/about/vision"],
       ["History", "/about/history"],
-      ["Where to find us", "/about/location"],
+      ["Contact Nova", "/about/location"],
     ],
   },
   {
@@ -121,6 +126,52 @@ function currentPath() {
   return pathname.replace(/\/$/, "") || "/";
 }
 
+function normalizeContent(input = {}) {
+  return {
+    ...defaultSiteContent,
+    ...input,
+    brand: { ...defaultSiteContent.brand, ...(input.brand || {}) },
+    home: { ...defaultSiteContent.home, ...(input.home || {}) },
+    company: { ...defaultSiteContent.company, ...(input.company || {}) },
+    contact: { ...defaultSiteContent.contact, ...(input.contact || {}) },
+    pageOverrides: { ...defaultSiteContent.pageOverrides, ...(input.pageOverrides || {}) },
+    videos: Array.isArray(input.videos) ? input.videos : defaultSiteContent.videos,
+  };
+}
+
+function routeContactThroughNova(value) {
+  if (typeof value !== "string") return value;
+  return value
+    .replace(/[\w.+-]+@purium\.kr/gi, "Nova secure inquiry portal")
+    .replace(/\+82-2-881-5544/g, "Nova Solutions Tech global support")
+    .replace(/E-mail\s*:\s*Nova secure inquiry portal/gi, "Contact: Nova secure inquiry portal")
+    .replace(/Tel\. No\.\s*:\s*Nova Solutions Tech global support/gi, "Support: Nova Solutions Tech");
+}
+
+function mergePageContent(page, content) {
+  let override = content.pageOverrides[page.route] || {};
+  if (page.route === "/about/company") {
+    override = { ...override, title: content.company.title, eyebrow: content.company.eyebrow, headings: [content.company.summary], paragraphs: content.company.paragraphs };
+  }
+  if (page.route === "/about/location") {
+    override = { ...override, paragraphs: [content.contact.address, content.contact.intro] };
+  }
+  const hasMediaOverride = Object.prototype.hasOwnProperty.call(override, "media");
+  const mediaItems = hasMediaOverride
+    ? (override.media || []).map((url) => ({ local: resolveAsset(url), original: url }))
+    : page.media.map((item) => ({ ...item, local: resolveAsset(item.local) }));
+  return {
+    ...page,
+    ...override,
+    headings: (override.headings || page.headings).map(routeContactThroughNova),
+    paragraphs: (override.paragraphs || page.paragraphs).map(routeContactThroughNova),
+    lists: (override.lists || page.lists).map(routeContactThroughNova),
+    tables: (override.tables || page.tables).map((table) => table.map((row) => row.map(routeContactThroughNova))),
+    media: mediaItems,
+    videos: override.videos || [],
+  };
+}
+
 function SiteLink({ to, navigate, children, className = "", onClick }) {
   return (
     <a
@@ -137,7 +188,7 @@ function SiteLink({ to, navigate, children, className = "", onClick }) {
   );
 }
 
-function Header({ path, navigate }) {
+function Header({ path, navigate, content }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState(null);
   const isHome = path === "/";
@@ -150,10 +201,10 @@ function Header({ path, navigate }) {
   return (
     <header className={`site-header ${isHome ? "over-hero" : "solid"}`}>
       <SiteLink to="/" navigate={navigate} className="brand" onClick={() => setMobileOpen(false)}>
-        <img src={ASSETS.novaLogo} alt="Nova Solutions Tech" />
+        <img src={resolveAsset(content.brand.logo) || ASSETS.novaLogo} alt={content.brand.name} />
         <span>
-          <strong>GLOBAL DISTRIBUTOR</strong>
-          <small>OF PURIUM</small>
+          <strong>{content.brand.partnerLabel.replace(/\s+FOR\s+PURIUM$/i, "")}</strong>
+          <small>FOR PURIUM</small>
         </span>
       </SiteLink>
 
@@ -231,7 +282,7 @@ function Eyebrow({ children, light = false }) {
   return <div className={`eyebrow ${light ? "light" : ""}`}><span />{children}</div>;
 }
 
-function Home({ navigate }) {
+function Home({ navigate, content }) {
   const features = [
     [Wind, "Air purification", "High-volume circulation and fine particulate removal."],
     [ShieldCheck, "Antimicrobial", "Eco-friendly antimicrobial performance for shared spaces."],
@@ -249,31 +300,29 @@ function Home({ navigate }) {
 
   return (
     <>
-      <section className="home-hero" style={{ backgroundImage: `url(${ASSETS.hero})` }}>
+      <section className="home-hero" style={{ backgroundImage: `url(${resolveAsset(content.home.heroImage) || ASSETS.hero})` }}>
         <div className="hero-shade" />
         <div className="hero-content page-shell">
-          <Eyebrow light>GLOBAL DISTRIBUTOR OF PURIUM</Eyebrow>
-          <h1>Clean air.<br />Smarter spaces.<br /><em>Global reach.</em></h1>
-          <p>
-            Nova Solutions Tech brings PURIUM’s patented Smart Safeguards Gate and integrated clean-air technologies to global markets.
-          </p>
+          <Eyebrow light>{content.home.eyebrow}</Eyebrow>
+          <h1>{content.home.headline.map((line, index) => index === content.home.headline.length - 1 ? <em key={line}>{line}</em> : <span key={line}>{line}<br /></span>)}</h1>
+          <p>{content.home.description}</p>
           <div className="hero-actions">
             <SiteLink to="/products/overview" navigate={navigate} className="button primary">
-              Explore PURIUM <ArrowRight size={18} />
+              Explore products <ArrowRight size={18} />
             </SiteLink>
             <SiteLink to="/contact/purchase" navigate={navigate} className="button ghost">
               Request a proposal
             </SiteLink>
           </div>
         </div>
-        <div className="hero-index">NOVA × PURIUM <span>01</span></div>
+        <div className="hero-index">PRODUCT × TECHNOLOGY <span>01</span></div>
       </section>
 
       <section className="proof-strip">
         <div className="page-shell proof-grid">
           <div><strong>01</strong><span>World-first patented walk-through air purification</span></div>
           <div><strong>05</strong><span>Integrated safeguards in one connected system</span></div>
-          <div><strong>GLOBAL</strong><span>Distribution and market integration by Nova</span></div>
+          <div><strong>GLOBAL</strong><span>Exclusive sales and distribution through Nova</span></div>
         </div>
       </section>
 
@@ -281,7 +330,7 @@ function Home({ navigate }) {
         <div className="page-shell split-intro">
           <div className="intro-copy">
             <Eyebrow>THE PURIUM DIFFERENCE</Eyebrow>
-            <h2>A new standard for safer, cleaner shared spaces.</h2>
+            <h2>Engineered clean-air technology for shared spaces.</h2>
             <p>
               PURIUM combines air purification, antimicrobial treatment, disinfection, dust collection and odor neutralization in a single smart platform—engineered for demanding public environments.
             </p>
@@ -310,8 +359,8 @@ function Home({ navigate }) {
           <div className="technology-visual"><img src={ASSETS.core} alt="Cyclone Turbo Air Shot technology" /></div>
           <div className="technology-copy">
             <Eyebrow light>CORE TECHNOLOGY</Eyebrow>
-            <h2>Cyclone<br />Turbo Air Shot</h2>
-            <p>A precision-engineered air curtain helps prevent contaminants from moving deeper into a facility while supporting powerful circulation and filtration.</p>
+            <h2>{content.home.technologyHeading.split(" ").map((word, index) => <span key={`${word}-${index}`}>{word}{index === 0 ? <br /> : " "}</span>)}</h2>
+            <p>{content.home.technologyCopy}</p>
             <SiteLink to="/technology/core" navigate={navigate} className="button light">See how it works <ArrowRight size={18} /></SiteLink>
           </div>
         </div>
@@ -319,8 +368,8 @@ function Home({ navigate }) {
 
       <section className="products-section section-space">
         <div className="page-shell section-heading-row">
-          <div><Eyebrow>PRODUCT PORTFOLIO</Eyebrow><h2>Built for the way<br />people move.</h2></div>
-          <p>From major public facilities to compact indoor environments, PURIUM offers a flexible family of clean-air solutions.</p>
+          <div><Eyebrow>PRODUCT PORTFOLIO</Eyebrow><h2>{content.home.productsHeading}</h2></div>
+          <p>{content.home.productsCopy}</p>
         </div>
         <div className="page-shell product-grid">
           {products.map(([label, name, route], index) => (
@@ -350,7 +399,7 @@ function Home({ navigate }) {
       <section className="services-section section-space">
         <div className="page-shell section-heading-row">
           <div><Eyebrow>GLOBAL SUPPORT</Eyebrow><h2>From introduction<br />to long-term care.</h2></div>
-          <p>Nova supports international market entry while PURIUM’s service system covers delivery, installation and ongoing product care.</p>
+          <p>Nova is the exclusive global point of contact for PURIUM product selection, commercial proposals, distribution and customer coordination.</p>
         </div>
         <div className="page-shell service-cards">
           {[
@@ -364,6 +413,8 @@ function Home({ navigate }) {
           ))}
         </div>
       </section>
+
+      <VideoShowcase videos={content.videos} />
 
       <CallToAction navigate={navigate} />
     </>
@@ -381,6 +432,37 @@ function CallToAction({ navigate }) {
         <SiteLink to="/contact/purchase" navigate={navigate} className="round-link" aria-label="Start an inquiry">
           <ArrowUpRight size={34} />
         </SiteLink>
+      </div>
+    </section>
+  );
+}
+
+function videoEmbedUrl(url) {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("youtube.com")) {
+      const id = parsed.searchParams.get("v") || parsed.pathname.split("/").filter(Boolean).pop();
+      return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
+    }
+    if (parsed.hostname === "youtu.be") return `https://www.youtube-nocookie.com/embed/${parsed.pathname.slice(1)}`;
+    if (parsed.hostname.includes("vimeo.com")) return `https://player.vimeo.com/video/${parsed.pathname.split("/").filter(Boolean).pop()}`;
+  } catch { return null; }
+  return null;
+}
+
+function VideoShowcase({ videos = [] }) {
+  const published = videos.filter((video) => video.url);
+  if (!published.length) return null;
+  return (
+    <section className="video-section section-space">
+      <div className="page-shell">
+        <div className="section-heading-row compact-heading"><div><Eyebrow>WATCH PURIUM IN ACTION</Eyebrow><h2>Product and technology videos.</h2></div><p>See how PURIUM systems support cleaner, safer shared environments.</p></div>
+        <div className="video-grid">
+          {published.map((video, index) => {
+            const embed = videoEmbedUrl(video.url);
+            return <article key={`${video.url}-${index}`}><div className="video-frame">{embed ? <iframe src={embed} title={video.title || `PURIUM video ${index + 1}`} loading="lazy" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowFullScreen /> : <video controls preload="metadata" src={resolveAsset(video.url)} />}</div><h3>{video.title || "PURIUM technology"}</h3></article>;
+          })}
+        </div>
       </div>
     </section>
   );
@@ -429,20 +511,38 @@ function MediaGrid({ items, title }) {
   );
 }
 
-function InquiryForm({ service = false }) {
+function InquiryForm({ service = false, content, apiBase }) {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   if (sent) {
     return (
       <div className="form-success" role="status">
         <CheckCircle2 size={44} />
-        <h3>Thank you. Your inquiry is ready for Nova’s team.</h3>
-        <p>This prototype confirms the complete form experience. Connect it to your email or CRM before launch.</p>
+        <h3>Thank you. Your inquiry has been sent to Nova.</h3>
+        <p>Nova’s global sales and support team will review your request.</p>
         <button type="button" onClick={() => setSent(false)}>Send another inquiry</button>
       </div>
     );
   }
   return (
-    <form className="inquiry-form" onSubmit={(event) => { event.preventDefault(); setSent(true); }}>
+    <form className="inquiry-form" onSubmit={async (event) => {
+      event.preventDefault();
+      setSending(true);
+      setError("");
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
+      try {
+        const response = await fetch(`${apiBase}/inquiries`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        if (!response.ok) throw new Error("Nova inquiry service is not available here");
+        setSent(true);
+      } catch {
+        setError("Opening Nova’s secure inquiry portal so your request reaches the right team.");
+        window.setTimeout(() => window.location.assign(content.contact.inquiryPortal), 700);
+      } finally {
+        setSending(false);
+      }
+    }}>
+      <input className="form-honeypot" name="website" tabIndex="-1" autoComplete="off" aria-hidden="true" />
       <div className="field-pair">
         <label>Full name<input name="name" autoComplete="name" required /></label>
         <label>Organization<input name="organization" autoComplete="organization" required /></label>
@@ -465,12 +565,13 @@ function InquiryForm({ service = false }) {
       </label>
       <label>How can we help?<textarea name="message" rows="6" required /></label>
       <label className="consent"><input type="checkbox" required /> I agree that Nova may use this information to respond to my inquiry.</label>
-      <button type="submit" className="button primary">Submit inquiry <ArrowRight size={18} /></button>
+      {error && <p className="form-route-note" role="status">{error}</p>}
+      <button type="submit" className="button primary" disabled={sending}>{sending ? "Sending…" : "Submit to Nova"} <ArrowRight size={18} /></button>
     </form>
   );
 }
 
-function ContactPage({ page, navigate }) {
+function ContactPage({ page, navigate, content, apiBase }) {
   return (
     <>
       <SubHero page={page} navigate={navigate} />
@@ -478,10 +579,10 @@ function ContactPage({ page, navigate }) {
         <aside>
           <Eyebrow>CONTACT NOVA</Eyebrow>
           <h2>{page.route === "/contact/service" ? "After-sales support" : "Start a conversation"}</h2>
-          <p>Tell us about your organization, facility or market. Nova Solutions Tech will route your request to the right commercial or technical contact.</p>
-          <div className="address-block"><span>HEADQUARTER</span><strong>9970 148 Street<br />Surrey, BC V3R 0P9<br />Canada</strong></div>
+          <p>{content.contact.intro}</p>
+          <div className="address-block"><span>HEADQUARTERS</span><strong>{content.contact.address.split("\n").map((line) => <span key={line}>{line}<br /></span>)}</strong><a href={content.contact.website} target="_blank" rel="noreferrer">{content.contact.website.replace(/^https?:\/\//, "")}</a></div>
         </aside>
-        <InquiryForm service={page.route === "/contact/service"} />
+        <InquiryForm service={page.route === "/contact/service"} content={content} apiBase={apiBase} />
       </main>
     </>
   );
@@ -496,7 +597,7 @@ function SubHero({ page, navigate }) {
         <Breadcrumbs page={page} navigate={navigate} />
         <Eyebrow light>{page.eyebrow}</Eyebrow>
         <h1>{page.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
-        <p>Official PURIUM product and company information, presented globally by Nova Solutions Tech.</p>
+        <p>PURIUM product and technology information, with exclusive global sales and distribution through Nova Solutions Tech.</p>
       </div>
     </section>
   );
@@ -546,7 +647,7 @@ function GenericPage({ page, navigate }) {
       <SectionNavigation page={page} navigate={navigate} />
       <main className="section-space">
         <div className="page-shell">
-          <div className="source-note"><Globe2 size={18} /><span>Product and corporate information supplied by PURIUM Co., Ltd.</span><a href={page.sourceUrl} target="_blank" rel="noreferrer">Original source <ArrowUpRight size={14} /></a></div>
+          <div className="source-note"><Globe2 size={18} /><span>Product and technology information supplied by PURIUM. Global sales and distribution by Nova Solutions Tech.</span><a href={page.sourceUrl} target="_blank" rel="noreferrer">Technology source <ArrowUpRight size={14} /></a></div>
 
           {(contentParagraphs.length > 0 || page.headings.length > 0) && (
             <div className={`editorial-layout ${isHistory ? "history-layout" : ""}`}>
@@ -580,6 +681,8 @@ function GenericPage({ page, navigate }) {
               <MediaGrid items={page.media} title={page.title.replace(/\n/g, " ")} />
             </section>
           )}
+
+          <VideoShowcase videos={page.videos} />
         </div>
       </main>
       <CallToAction navigate={navigate} />
@@ -596,23 +699,38 @@ function NotFound({ navigate }) {
   );
 }
 
-function Footer({ navigate }) {
+function Footer({ navigate, content, adminEnabled }) {
   return (
     <footer className="site-footer">
       <div className="page-shell footer-main">
-        <div className="footer-brand"><img src={ASSETS.novaLogo} alt="Nova Solutions Tech" /><p>Global distributor of PURIUM clean-air and Smart Safeguards Gate technologies.</p></div>
+        <div className="footer-brand"><img src={resolveAsset(content.brand.logo) || ASSETS.novaLogo} alt={content.brand.name} /><p>Exclusive global sales and distribution partner for PURIUM clean-air products and Smart Safeguards Gate technology.</p></div>
         <div><span className="footer-label">Explore</span><SiteLink to="/products/overview" navigate={navigate}>Products</SiteLink><SiteLink to="/technology/core" navigate={navigate}>Technology</SiteLink><SiteLink to="/installations/7" navigate={navigate}>Installations</SiteLink></div>
         <div><span className="footer-label">Support</span><SiteLink to="/services/care" navigate={navigate}>Care service</SiteLink><SiteLink to="/contact/service" navigate={navigate}>After-sales service</SiteLink><SiteLink to="/contact/purchase" navigate={navigate}>Purchase inquiry</SiteLink></div>
-        <div><span className="footer-label">Headquarter</span><p>9970 148 Street<br />Surrey, BC V3R 0P9<br />Canada</p></div>
+        <div><span className="footer-label">Nova headquarters</span><p>{content.contact.address.split("\n").map((line) => <span key={line}>{line}<br /></span>)}</p><a href={content.contact.website} target="_blank" rel="noreferrer">Nova website</a></div>
       </div>
-      <div className="page-shell footer-bottom"><span>© {new Date().getFullYear()} Nova Solutions Tech Inc.</span><span>Global Distributor of PURIUM</span><SiteLink to="/privacy" navigate={navigate}>Privacy policy</SiteLink></div>
+      <div className="page-shell footer-bottom"><span>© {new Date().getFullYear()} Nova Solutions Tech Inc.</span><span>Exclusive global sales & distribution partner for PURIUM</span><SiteLink to="/privacy" navigate={navigate}>Privacy policy</SiteLink>{adminEnabled && <SiteLink to="/admin" navigate={navigate}>Site admin</SiteLink>}</div>
     </footer>
   );
 }
 
 export function App() {
   const [path, setPath] = useState(currentPath);
-  const pageMap = useMemo(() => new Map(pages.map((page) => [page.route, page])), []);
+  const [siteContent, setSiteContent] = useState(() => normalizeContent(defaultSiteContent));
+  const [adminEnabled, setAdminEnabled] = useState(false);
+  const apiBase = `${BASE_PATH}/api`;
+  const pageMap = useMemo(() => new Map(pages.map((page) => {
+    const merged = mergePageContent(page, siteContent);
+    return [merged.route, merged];
+  })), [siteContent]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(`${apiBase}/content`, { signal: controller.signal })
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Static deployment")))
+      .then((value) => { setSiteContent(normalizeContent(value)); setAdminEnabled(true); })
+      .catch(() => {});
+    return () => controller.abort();
+  }, [apiBase]);
 
   useEffect(() => {
     const onPopState = () => setPath(currentPath());
@@ -628,18 +746,19 @@ export function App() {
   };
 
   const page = pageMap.get(path);
+  if (path === "/admin") return <Admin apiBase={apiBase} content={siteContent} onContent={(value) => setSiteContent(normalizeContent(value))} navigate={navigate} sourcePages={pages} />;
   let content;
-  if (path === "/") content = <Home navigate={navigate} />;
+  if (path === "/") content = <Home navigate={navigate} content={siteContent} />;
   else if (!page) content = <NotFound navigate={navigate} />;
   else if (path.startsWith("/installations/")) content = <InstallationPage page={page} navigate={navigate} />;
-  else if (path.startsWith("/contact/")) content = <ContactPage page={page} navigate={navigate} />;
+  else if (path.startsWith("/contact/")) content = <ContactPage page={page} navigate={navigate} content={siteContent} apiBase={apiBase} />;
   else content = <GenericPage page={page} navigate={navigate} />;
 
   return (
     <div className="app-shell">
-      <Header path={path} navigate={navigate} />
+      <Header path={path} navigate={navigate} content={siteContent} />
       {content}
-      <Footer navigate={navigate} />
+      <Footer navigate={navigate} content={siteContent} adminEnabled={adminEnabled} />
     </div>
   );
 }

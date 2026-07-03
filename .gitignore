@@ -6,6 +6,9 @@ site/dist/
 site/.npm-cache/
 site/source-captures/
 site/screenshots/
+site/.env
+site/server-data/
+site/public/uploads/
 
 *.log
 *.local

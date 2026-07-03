@@ -13,3 +13,6 @@ When implementing from a selected generated mock, treat that image as the source
 - Use Nova's identity and Canadian headquarters while retaining PURIUM's restrained black, white, and cyan industrial visual language.
 - PURIUM text and media may be reused only where Nova has authorization to republish them.
 - Keep the site fully responsive, with working navigation, image previews, installation filters, and inquiry/service form states.
+- Lead with PURIUM products and technology rather than manufacturer leadership or corporate personalities; do not reintroduce CEO-message content.
+- Present Nova Solutions Tech as PURIUM's exclusive global sales and distribution partner and route all commercial, product, distribution, installation, and support inquiries through Nova.
+- Keep editable public content in `src/data/site-content.json`; secure runtime edits, uploaded media, inquiries, and administrator credentials belong to the Node server and must never be committed.
