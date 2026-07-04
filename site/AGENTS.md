@@ -21,6 +21,6 @@ When implementing from a selected generated mock, treat that image as the source
 - The About section is Nova-first: exclude PURIUM executive, registration, manufacturer-address, CI and character content; retain manufacturer milestones only when they support product credibility.
 - Body copy and navigation labels must use high-contrast text. Vision and History should use structured HTML layouts instead of decorative source graphics or duplicated content.
 - Consumables and accessories should be presented as image-led product cards mapped to the source specifications; delivery and installation should interleave each image with its corresponding process step.
-- Place official product videos beside the most relevant product content instead of rebuilding a standalone promotional Media section.
+- Place official product videos inside the most relevant product story—currently Product Overview between the operating modes and detailed characteristics—instead of on consumables pages or in a standalone promotional Media section.
 - On every content page, keep each source image in the same section as the heading, description, feature, product family or service step it illustrates; do not collect context-dependent images in a detached gallery at the bottom.
 - Keep Environmental Management, but exclude manufacturer ESG, donation/social, ethical-management and promotional Media pages from Nova’s public navigation and routes.

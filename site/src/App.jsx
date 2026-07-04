@@ -453,12 +453,12 @@ function VideoShowcase({
   eyebrow = "WATCH PURIUM IN ACTION",
   heading = "Product and technology videos.",
   description = "See how PURIUM systems support cleaner, safer shared environments.",
+  inline = false,
 }) {
   const published = videos.filter((video) => video.url);
   if (!published.length) return null;
-  return (
-    <section className="video-section section-space">
-      <div className="page-shell">
+  const showcase = (
+    <>
         <div className="section-heading-row compact-heading"><div><Eyebrow>{eyebrow}</Eyebrow><h2>{heading}</h2></div><p>{description}</p></div>
         <div className="video-grid">
           {published.map((video, index) => {
@@ -466,7 +466,11 @@ function VideoShowcase({
             return <article key={`${video.url}-${index}`}><div className="video-frame">{embed ? <iframe src={embed} title={video.title || `PURIUM video ${index + 1}`} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowFullScreen /> : <video controls preload="metadata" src={resolveAsset(video.url)} />}</div><h3>{video.title || "PURIUM technology"}</h3></article>;
           })}
         </div>
-      </div>
+    </>
+  );
+  return (
+    <section className={`video-section ${inline ? "inline-video-section" : "section-space"}`}>
+      {inline ? showcase : <div className="page-shell">{showcase}</div>}
     </section>
   );
 }
@@ -908,6 +912,13 @@ function ProductOverviewPage({ page, navigate }) {
           <div className="mode-grid">
             {modeCards.map((mode) => <article key={mode.number}><div className="mode-visual"><img src={mode.image?.local} alt={`${mode.title} product view`} /></div><div className="mode-copy"><span>MODE {mode.number}</span><h3>{mode.title}</h3><p>{mode.description}</p><ul>{mode.items.map((item, index) => <li key={item}><img src={mode.icons[index]?.local} alt="" aria-hidden="true" /><span>{item}</span></li>)}</ul></div></article>)}
           </div>
+          <VideoShowcase
+            videos={page.videos}
+            eyebrow="WATCH THE PRODUCT OVERVIEW"
+            heading="See the Smart Safeguards Gate in operation."
+            description="Watch the official PURIUM introduction before exploring the sixteen integrated product characteristics below."
+            inline
+          />
           <section className="characteristics-section"><div className="characteristics-heading"><Eyebrow>PRODUCT CHARACTERISTICS</Eyebrow><h2>Technology, shown with the feature it supports.</h2></div><div className="characteristics-grid">{page.headings.slice(2).map((heading, index) => <article key={heading}><div className="characteristic-icon"><img src={page.media[index + 10]?.local} alt="" aria-hidden="true" /></div><span>{String(index + 1).padStart(2, "0")}</span><h3>{heading}</h3><p>{page.paragraphs[index + 3]}</p></article>)}</div></section>
         </div>
       </main>
@@ -1006,12 +1017,6 @@ function SuppliesPage({ page, navigate }) {
           <section className="supply-section"><div className="supply-section-heading"><span>02</span><div><Eyebrow>SYSTEM OPTIONS</Eyebrow><h2>Accessories</h2></div><p>Sensing, monitoring, access and facility-integration options for specific deployments.</p></div><div className="supply-grid accessories-grid">{accessories.map((row, index) => <SupplyCard key={row[0]} row={row} image={page.media[index + 3]} number={String(index + 1).padStart(2, "0")} />)}</div></section>
         </div>
       </main>
-      <VideoShowcase
-        videos={page.videos}
-        eyebrow="SEE THE SYSTEM IN ACTION"
-        heading="The Smart Safeguards Gate, explained."
-        description="See how PURIUM combines walk-through air treatment and intelligent system design before choosing consumables or accessories for your installation."
-      />
       <CallToAction navigate={navigate} />
     </>
   );
