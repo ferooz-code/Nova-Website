@@ -20,3 +20,5 @@ When implementing from a selected generated mock, treat that image as the source
 - When a source document is too small to remain legible at presentation size, keep it out of the hero and express its verified data in accessible HTML instead.
 - The About section is Nova-first: exclude PURIUM executive, registration, manufacturer-address, CI and character content; retain manufacturer milestones only when they support product credibility.
 - Body copy and navigation labels must use high-contrast text. Vision and History should use structured HTML layouts instead of decorative source graphics or duplicated content.
+- Consumables and accessories should be presented as image-led product cards mapped to the source specifications; delivery and installation should interleave each image with its corresponding process step.
+- Keep Environmental Management, but exclude manufacturer ESG, donation/social, ethical-management and promotional Media pages from Nova’s public navigation and routes.

@@ -17,7 +17,15 @@ import assetMap from "./data/asset-map.json";
 import defaultSiteContent from "./data/site-content.json";
 import { Admin } from "./Admin.jsx";
 
-const publicPages = pages;
+const removedRoutes = new Set([
+  "/sustainability/esg",
+  "/sustainability/social",
+  "/sustainability/ethics",
+  "/news/gallery",
+  "/news/photos",
+  "/news/videos",
+]);
+const publicPages = pages.filter((page) => !removedRoutes.has(page.route));
 
 const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, "");
 const withBasePath = (path) => `${BASE_PATH}${path}`;
@@ -89,18 +97,7 @@ const navGroups = [
   {
     label: "Sustainability",
     items: [
-      ["ESG management", "/sustainability/esg"],
       ["Environmental management", "/sustainability/environment"],
-      ["Contribution to society", "/sustainability/social"],
-      ["Ethical management", "/sustainability/ethics"],
-    ],
-  },
-  {
-    label: "Media",
-    items: [
-      ["PURIUM gallery", "/news/gallery"],
-      ["Photo gallery", "/news/photos"],
-      ["Video gallery", "/news/videos"],
     ],
   },
 ];
@@ -836,6 +833,53 @@ function HistoryPage({ page, navigate }) {
   );
 }
 
+function SupplyCard({ row, image, number }) {
+  const [name, , specification = ""] = row;
+  const details = specification.split(/\n+/).map((item) => item.trim()).filter(Boolean);
+  return <article className="supply-card"><div className="supply-card-media"><img src={image?.local} alt={name} loading="lazy" /></div><div className="supply-card-copy"><span>{number}</span><h3>{name}</h3><ul>{details.map((detail) => <li key={detail}>{detail}</li>)}</ul></div></article>;
+}
+
+function SuppliesPage({ page, navigate }) {
+  const consumables = page.tables[0]?.slice(1) || [];
+  const accessories = page.tables[1]?.slice(1) || [];
+  return (
+    <>
+      <SubHero page={{ ...page, title: "Consumables & accessories", media: [], heroDescription: "Replacement filtration, treatment consumables and optional sensing accessories for PURIUM systems." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space supplies-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="supplies-intro"><div><Eyebrow>PRODUCT SUPPORT</Eyebrow><h2>Keep every system performing as designed.</h2></div><p>Browse core replacement consumables and optional system accessories. Nova coordinates product matching, availability and global supply.</p></section>
+          <section className="supply-section"><div className="supply-section-heading"><span>01</span><div><Eyebrow>ROUTINE REPLACEMENT</Eyebrow><h2>Consumables</h2></div><p>Filtration and treatment components that support ongoing air-quality performance.</p></div><div className="supply-grid consumables-grid">{consumables.map((row, index) => <SupplyCard key={row[0]} row={row} image={page.media[index]} number={String(index + 1).padStart(2, "0")} />)}</div></section>
+          <section className="supply-section"><div className="supply-section-heading"><span>02</span><div><Eyebrow>SYSTEM OPTIONS</Eyebrow><h2>Accessories</h2></div><p>Sensing, monitoring, access and facility-integration options for specific deployments.</p></div><div className="supply-grid accessories-grid">{accessories.map((row, index) => <SupplyCard key={row[0]} row={row} image={page.media[index + 3]} number={String(index + 1).padStart(2, "0")} />)}</div></section>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+const deliveryParagraphGroups = [[1, 2, 3], [4], [5, 6], [7, 8], [9], [10, 11]];
+
+function DeliveryPage({ page, navigate }) {
+  return (
+    <>
+      <SubHero page={{ ...page, media: [], heroDescription: "A controlled six-step process from protected transport through commissioning and customer handover." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space delivery-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="delivery-intro"><div><Eyebrow>INSTALLATION PROCESS</Eyebrow><h2>Safe transport. Precise assembly. Confident handover.</h2></div><p>{page.paragraphs[0]}</p></section>
+          <div className="delivery-steps">
+            {page.headings.slice(0, 6).map((heading, index) => <article key={heading}><div className="delivery-step-media"><img src={page.media[index]?.local} alt={`Delivery and installation step ${index + 1}: ${heading}`} loading="lazy" /></div><div className="delivery-step-copy"><span>STEP {String(index + 1).padStart(2, "0")}</span><h3>{heading}</h3>{deliveryParagraphGroups[index].map((paragraphIndex) => <p key={paragraphIndex} className={page.paragraphs[paragraphIndex]?.startsWith("※") ? "delivery-note" : ""}>{page.paragraphs[paragraphIndex]}</p>)}</div></article>)}
+          </div>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
 function isReadableMedia(item) {
   return !/(icon|arrow|prev|next|download)/i.test(item?.local || item?.source || "");
 }
@@ -963,6 +1007,8 @@ export function App() {
   else if (path === "/about/company") content = <AboutNova page={page} navigate={navigate} />;
   else if (path === "/about/vision") content = <VisionPage page={page} navigate={navigate} />;
   else if (path === "/about/history") content = <HistoryPage page={page} navigate={navigate} />;
+  else if (path === "/products/supplies") content = <SuppliesPage page={page} navigate={navigate} />;
+  else if (path === "/services/delivery") content = <DeliveryPage page={page} navigate={navigate} />;
   else content = <GenericPage page={page} navigate={navigate} />;
 
   return (
