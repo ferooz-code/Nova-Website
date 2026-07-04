@@ -637,6 +637,126 @@ function DataTable({ table, index }) {
   );
 }
 
+function SourceNote({ page }) {
+  return <div className="source-note"><Globe2 size={18} /><span>Product and technology information supplied by PURIUM. Global sales and distribution by Nova Solutions Tech.</span><a href={page.sourceUrl} target="_blank" rel="noreferrer">Technology source <ArrowUpRight size={14} /></a></div>;
+}
+
+const patentGroupDefinitions = [
+  ["Granted patents", (item) => /^Patent (?!Application)/.test(item)],
+  ["Patent applications", (item) => /^Patent Application/.test(item)],
+  ["International filings", (item) => /^(PCT|EUROPE|USA)/.test(item)],
+  ["Product designs", (item) => /^Design/.test(item)],
+  ["Trademarks", (item) => /^TM/.test(item)],
+  ["Software programs", (item) => /^Program/.test(item)],
+  ["Other intellectual property", (item) => /^Image/.test(item)],
+];
+
+function PatentPortfolio({ page, navigate }) {
+  const groups = patentGroupDefinitions.map(([label, matches]) => ({ label, items: page.lists.filter(matches) })).filter((group) => group.items.length);
+  return (
+    <>
+      <SubHero page={{ ...page, title: "Patents & intellectual property", media: [] }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space technical-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="portfolio-intro">
+            <div><Eyebrow>PROTECTED INNOVATION</Eyebrow><h2>A structured portfolio of PURIUM technology.</h2></div>
+            <div className="portfolio-summary"><strong>{page.lists.length}</strong><span>published registrations and applications across patents, designs, trademarks and software.</span></div>
+          </section>
+          <div className="portfolio-groups">
+            {groups.map((group, index) => (
+              <details className="portfolio-group" key={group.label} open={index === 0}>
+                <summary><span>{String(index + 1).padStart(2, "0")}</span><strong>{group.label}</strong><small>{group.items.length} {group.items.length === 1 ? "record" : "records"}</small><ChevronDown size={20} /></summary>
+                <ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul>
+              </details>
+            ))}
+          </div>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+const cycloneFeatures = [
+  { title: "12-port Cyclone Turbo Air Shot", mediaIndex: 0 },
+  { title: "Carbon nanotube + HEPA 13 capture", mediaIndex: 6 },
+  { title: "Dual UV-A / UV-C treatment", mediaIndex: 7 },
+  { title: "Natural phytoncide deodorization", mediaIndex: 10 },
+];
+
+function CycloneTechnology({ page, navigate }) {
+  const selectedMedia = page.media.length >= 11 ? [0, 6, 7, 10].map((index) => page.media[index]) : page.media.slice(0, 4);
+  return (
+    <>
+      <SubHero page={{ ...page, media: [] }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space technical-page cyclone-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="cyclone-intro">
+            <div><Eyebrow>ENGINEERED AIRFLOW</Eyebrow><h2>Four coordinated technologies. One cleaner-air pathway.</h2></div>
+            <p>The Cyclone Turbo Air Shot combines directional airflow, high-efficiency capture, UV treatment and natural deodorization in one integrated system.</p>
+          </section>
+          <div className="technology-metrics" aria-label="Cyclone Turbo Air Shot highlights">
+            <div><strong>12</strong><span>wind discharge ports</span></div>
+            <div><strong>4</strong><span>dust collector fans</span></div>
+            <div><strong>HEPA 13</strong><span>high-efficiency filtration</span></div>
+            <div><strong>99.9%</strong><span>reported particulate removal*</span></div>
+          </div>
+          <div className="cyclone-feature-grid">
+            {cycloneFeatures.map((feature, index) => {
+              const item = selectedMedia[index] || selectedMedia[0];
+              return <article className="cyclone-feature" key={feature.title}><div className={`cyclone-feature-media ${index === 1 || index === 2 ? "dark" : ""}`}><img src={item?.local} alt={feature.title} loading="lazy" /></div><div><span>{String(index + 1).padStart(2, "0")}</span><h3>{feature.title}</h3><p>{page.paragraphs[index]}</p></div></article>;
+            })}
+          </div>
+          <p className="technical-footnote">*Performance figures shown are reported in PURIUM source materials. Results may vary by operating conditions and installation.</p>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+function parseTestResult(item, fallbackNumber) {
+  const lines = item.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+  const readings = [...item.matchAll(/([\d.]+)\s*㎍\/㎥/g)].map((match) => match[1]);
+  const removal = item.match(/([\d.]+)%\s*Removed/i)?.[1];
+  return { number: lines[0] || fallbackNumber, title: lines[1] || "Performance test", before: readings[0] || "—", after: readings[1] || "—", removal: removal ? `${removal}%` : "—" };
+}
+
+function parseScoreBand(item) {
+  const lines = item.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+  return [lines[0] || "Unspecified", (lines[1] || "—").replace(/\s–\s*$/, "+").replace(/\s+/g, "")];
+}
+
+function TestReports({ page, navigate }) {
+  const testResults = page.lists.slice(0, 3).map((item, index) => parseTestResult(item, String(index + 1).padStart(2, "0")));
+  const scoreBands = page.lists.slice(3, 8).map(parseScoreBand);
+  return (
+    <>
+      <SubHero page={{ ...page, media: [] }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space technical-page reports-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="reports-intro"><div><Eyebrow>VALIDATED PERFORMANCE</Eyebrow><h2>Test results, made readable.</h2></div><p>Three challenge tests compare airborne particulate measurements before and after operation of the Smart Safeguards Gate.</p></section>
+          <div className="report-result-grid">
+            {testResults.map((result) => <article key={result.number}><div className="report-card-head"><span>{result.number}</span><h3>{result.title}</h3></div><div className="report-reading"><div><small>Before</small><strong>{result.before}</strong><span>㎍/㎥</span></div><ArrowRight size={22} /><div><small>After</small><strong>{result.after}</strong><span>㎍/㎥</span></div></div><div className="report-removal"><strong>{result.removal}</strong><span>reported removal</span></div></article>)}
+          </div>
+          <section className="score-section">
+            <div className="score-copy"><Eyebrow>PURIUM SCORE</Eyebrow><h2>A simple PM2.5 air-quality scale.</h2><p>{page.paragraphs[0]}</p></div>
+            <div className="score-scale">{scoreBands.map(([label, range], index) => <div key={label}><span style={{ "--score-level": index }}>{label}</span><strong>{range}</strong><small>㎍/㎥</small></div>)}</div>
+          </section>
+          <p className="technical-footnote">Results and assessment thresholds are reproduced from PURIUM’s published test-report source. They are presented as technical information, not as an independent Nova laboratory claim.</p>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
 function GenericPage({ page, navigate }) {
   const isHistory = page.route === "/about/history";
   const isMediaForward = page.media.length >= 6;
@@ -647,7 +767,7 @@ function GenericPage({ page, navigate }) {
       <SectionNavigation page={page} navigate={navigate} />
       <main className="section-space">
         <div className="page-shell">
-          <div className="source-note"><Globe2 size={18} /><span>Product and technology information supplied by PURIUM. Global sales and distribution by Nova Solutions Tech.</span><a href={page.sourceUrl} target="_blank" rel="noreferrer">Technology source <ArrowUpRight size={14} /></a></div>
+          <SourceNote page={page} />
 
           {(contentParagraphs.length > 0 || page.headings.length > 0) && (
             <div className={`editorial-layout ${isHistory ? "history-layout" : ""}`}>
@@ -752,6 +872,9 @@ export function App() {
   else if (!page) content = <NotFound navigate={navigate} />;
   else if (path.startsWith("/installations/")) content = <InstallationPage page={page} navigate={navigate} />;
   else if (path.startsWith("/contact/")) content = <ContactPage page={page} navigate={navigate} content={siteContent} apiBase={apiBase} />;
+  else if (path === "/technology/core") content = <CycloneTechnology page={page} navigate={navigate} />;
+  else if (path === "/technology/patents") content = <PatentPortfolio page={page} navigate={navigate} />;
+  else if (path === "/technology/test-reports") content = <TestReports page={page} navigate={navigate} />;
   else content = <GenericPage page={page} navigate={navigate} />;
 
   return (
