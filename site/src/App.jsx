@@ -448,17 +448,22 @@ function videoEmbedUrl(url) {
   return null;
 }
 
-function VideoShowcase({ videos = [] }) {
+function VideoShowcase({
+  videos = [],
+  eyebrow = "WATCH PURIUM IN ACTION",
+  heading = "Product and technology videos.",
+  description = "See how PURIUM systems support cleaner, safer shared environments.",
+}) {
   const published = videos.filter((video) => video.url);
   if (!published.length) return null;
   return (
     <section className="video-section section-space">
       <div className="page-shell">
-        <div className="section-heading-row compact-heading"><div><Eyebrow>WATCH PURIUM IN ACTION</Eyebrow><h2>Product and technology videos.</h2></div><p>See how PURIUM systems support cleaner, safer shared environments.</p></div>
+        <div className="section-heading-row compact-heading"><div><Eyebrow>{eyebrow}</Eyebrow><h2>{heading}</h2></div><p>{description}</p></div>
         <div className="video-grid">
           {published.map((video, index) => {
             const embed = videoEmbedUrl(video.url);
-            return <article key={`${video.url}-${index}`}><div className="video-frame">{embed ? <iframe src={embed} title={video.title || `PURIUM video ${index + 1}`} loading="lazy" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowFullScreen /> : <video controls preload="metadata" src={resolveAsset(video.url)} />}</div><h3>{video.title || "PURIUM technology"}</h3></article>;
+            return <article key={`${video.url}-${index}`}><div className="video-frame">{embed ? <iframe src={embed} title={video.title || `PURIUM video ${index + 1}`} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowFullScreen /> : <video controls preload="metadata" src={resolveAsset(video.url)} />}</div><h3>{video.title || "PURIUM technology"}</h3></article>;
           })}
         </div>
       </div>
@@ -854,6 +859,12 @@ function SuppliesPage({ page, navigate }) {
           <section className="supply-section"><div className="supply-section-heading"><span>02</span><div><Eyebrow>SYSTEM OPTIONS</Eyebrow><h2>Accessories</h2></div><p>Sensing, monitoring, access and facility-integration options for specific deployments.</p></div><div className="supply-grid accessories-grid">{accessories.map((row, index) => <SupplyCard key={row[0]} row={row} image={page.media[index + 3]} number={String(index + 1).padStart(2, "0")} />)}</div></section>
         </div>
       </main>
+      <VideoShowcase
+        videos={page.videos}
+        eyebrow="SEE THE SYSTEM IN ACTION"
+        heading="The Smart Safeguards Gate, explained."
+        description="See how PURIUM combines walk-through air treatment and intelligent system design before choosing consumables or accessories for your installation."
+      />
       <CallToAction navigate={navigate} />
     </>
   );

@@ -85,6 +85,14 @@
       ],
       "media": []
     },
+    "/products/supplies": {
+      "videos": [
+        {
+          "title": "PURIUM Smart Safeguards Gate introduction",
+          "url": "https://www.youtube.com/watch?v=6DXBHlwuHuE"
+        }
+      ]
+    },
     "/contact/purchase": {
       "title": "Product & Sales Inquiry",
       "eyebrow": "CONTACT NOVA",
