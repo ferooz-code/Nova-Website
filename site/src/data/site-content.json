@@ -38,12 +38,41 @@
       "title": "Nova Solutions Tech",
       "eyebrow": "ABOUT NOVA",
       "category": "About",
-      "headings": ["PURIUM’s exclusive global sales and distribution partner"],
+      "headings": [
+        "Connecting PURIUM innovation with the world.",
+        "Nova Solutions Tech is PURIUM’s exclusive global sales and distribution partner."
+      ],
       "paragraphs": [
         "Nova Solutions Tech is PURIUM’s exclusive global sales and distribution partner, connecting its patented clean-air products and technologies with customers, integrators and regional partners worldwide.",
         "Nova leads international product promotion, commercial development, sales coordination and distribution for PURIUM solutions. We help organizations identify the right system for their facility, region and operational requirements.",
         "Our role is to make PURIUM technology accessible beyond the manufacturer’s home market. Nova coordinates product consultation, proposals, market partnerships, delivery planning and long-term customer support through a single global point of contact."
-      ]
+      ],
+      "tables": [],
+      "media": []
+    },
+    "/about/vision": {
+      "title": "Vision",
+      "eyebrow": "ABOUT NOVA",
+      "category": "About",
+      "headings": [
+        "Cleaner spaces. Smarter protection. Responsible growth.",
+        "Living cleaner and safer",
+        "Good technology, caring business",
+        "Shared progress"
+      ],
+      "paragraphs": [
+        "Our shared vision is to make advanced clean-air technology easier to understand, access and deploy in the environments that need it.",
+        "Create safer indoor environments by helping reduce fine and ultrafine particulate matter where people live, work, learn and receive care.",
+        "Keep improving performance, developing intellectual property and translating strong engineering into dependable products.",
+        "Build long-term value through responsible collaboration, reliable customer support and a healthier environment for everyone involved."
+      ],
+      "media": []
+    },
+    "/about/history": {
+      "title": "Milestones",
+      "eyebrow": "PROGRESS & INNOVATION",
+      "category": "About",
+      "media": []
     },
     "/about/location": {
       "title": "Contact Nova",

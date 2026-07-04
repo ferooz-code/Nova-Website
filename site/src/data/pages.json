@@ -109,57 +109,11 @@
     "category": "About",
     "eyebrow": "COMPANY",
     "title": "Smart Safeguards Gate",
-    "headings": [
-      "Organization",
-      "Company information"
-    ],
-    "paragraphs": [
-      "PURIUM Co, Ltd. was founded in September 2016. Under a vision of “Safer, cleaner spaces”, we have developed,\npatented and commercialized the [Smart Safeguards Gate], a state-of-the-art, first of its kind product.",
-      "*Technology Innovation Team : Corporate Annexed R&D Institute (Sep. 19, 2019, Korean Industrial Technology Association)"
-    ],
+    "headings": [],
+    "paragraphs": [],
     "lists": [],
-    "tables": [
-      [
-        [
-          "Name",
-          "PURIUM Co., Ltd.      Business Reg. No. : 409-87-00547"
-        ],
-        [
-          "President & CEO",
-          "Nam, Ho Jin"
-        ],
-        [
-          "Founded",
-          "Sep. 1, 2016"
-        ],
-        [
-          "Business category",
-          "Manufacturing, wholesale & retail, service"
-        ],
-        [
-          "Addresses",
-          "(Purium Yongin) 143, Yeongmun-ro 29beon-gil, Pogok-eup, Cheoin-gu, Yongin-si, Gyeonggi-do"
-        ],
-        [
-          "Homepage",
-          "http://www.purium.kr"
-        ],
-        [
-          "Contact information",
-          "E-mail : Nova secure inquiry portal\nTel. No. : Nova Solutions Tech global support"
-        ],
-        [
-          "Key products",
-          "Manufacture and sale of Smart Safeguards Gate /\nSmart IoT platform services /\nIndoor air quality management services"
-        ]
-      ]
-    ],
-    "media": [
-      {
-        "source": "https://purium.kr/img/sub/organizationPc_en.png",
-        "local": "/media/purium/organizationPc_en-9ec570cf66e1d407.png"
-      }
-    ],
+    "tables": [],
+    "media": [],
     "sourceUrl": "https://purium.kr/en/sub/company/overview/summary.php"
   },
   {
@@ -286,50 +240,6 @@
       }
     ],
     "sourceUrl": "https://purium.kr/en/sub/company/overview/corporate.php"
-  },
-  {
-    "route": "/about/identity",
-    "category": "About",
-    "eyebrow": "COMPANY",
-    "title": "CI · CHARACTER",
-    "headings": [
-      "PURIUM CI",
-      "CHARACTER",
-      "Puridol, the PURIUM character."
-    ],
-    "paragraphs": [
-      "The PURIUM logo represents our ‘clean spaces’ identity and core values of\n‘smart IoT and reliable products’ and ‘health and cleanliness’.\nThe logo visualizes the essence of the spatial experience created by\ncleaner air: ‘Clean air systems for you.’",
-      "Puridol represents our ‘clean spaces’ identity and core values of\n‘smart IoT and reliable products’ and ‘health and cleanliness’.\nThe logo visualizes the essence of the spatial experience created by\ncleaner air: ‘Clean air systems for you.’"
-    ],
-    "lists": [],
-    "tables": [],
-    "media": [
-      {
-        "source": "https://purium.kr/img/sub/downloadIcon.png",
-        "local": "/media/purium/downloadIcon-111b08c9b5b0a63b.png"
-      },
-      {
-        "source": "https://purium.kr/img/svg/Green_ESG.svg",
-        "local": "/media/purium/Green_ESG-42e42ce9e25b3c80.svg"
-      },
-      {
-        "source": "https://purium.kr/img/sub/ciImg2-1.png",
-        "local": "/media/purium/ciImg2-1-ce9bfab385b322ba.png"
-      },
-      {
-        "source": "https://purium.kr/img/sub/ciImg2-2.png",
-        "local": "/media/purium/ciImg2-2-91876f683bc3d49f.png"
-      },
-      {
-        "source": "https://purium.kr/img/sub/ciImg3-1.png",
-        "local": "/media/purium/ciImg3-1-1326bf5f1e725799.png"
-      },
-      {
-        "source": "https://purium.kr/img/sub/ciImg3-2.png",
-        "local": "/media/purium/ciImg3-2-37ef61b3b752d162.png"
-      }
-    ],
-    "sourceUrl": "https://purium.kr/en/sub/company/overview/ci.php"
   },
   {
     "route": "/about/location",

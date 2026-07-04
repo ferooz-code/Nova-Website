@@ -17,6 +17,8 @@ import assetMap from "./data/asset-map.json";
 import defaultSiteContent from "./data/site-content.json";
 import { Admin } from "./Admin.jsx";
 
+const publicPages = pages;
+
 const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, "");
 const withBasePath = (path) => `${BASE_PATH}${path}`;
 const resolveAsset = (path) => {
@@ -47,7 +49,6 @@ const navGroups = [
       ["About Nova", "/about/company"],
       ["Awards", "/about/awards"],
       ["Enterprise certifications", "/about/certifications"],
-      ["Identity", "/about/identity"],
       ["Vision", "/about/vision"],
       ["History", "/about/history"],
       ["Contact Nova", "/about/location"],
@@ -151,7 +152,7 @@ function routeContactThroughNova(value) {
 function mergePageContent(page, content) {
   let override = content.pageOverrides[page.route] || {};
   if (page.route === "/about/company") {
-    override = { ...override, title: content.company.title, eyebrow: content.company.eyebrow, headings: [content.company.summary], paragraphs: content.company.paragraphs };
+    override = { ...override, title: content.company.title, eyebrow: content.company.eyebrow, headings: override.headings?.length ? override.headings : [content.company.summary], paragraphs: content.company.paragraphs };
   }
   if (page.route === "/about/location") {
     override = { ...override, paragraphs: [content.contact.address, content.contact.intro] };
@@ -488,12 +489,12 @@ function SectionNavigation({ page, navigate }) {
   );
 }
 
-function MediaGrid({ items, title }) {
+function MediaGrid({ items, title, variant = "" }) {
   const [active, setActive] = useState(null);
   if (!items.length) return null;
   return (
     <>
-      <div className={`media-grid ${items.length < 3 ? "compact" : ""}`}>
+      <div className={`media-grid ${items.length < 3 ? "compact" : ""} ${variant}`.trim()}>
         {items.map((item, index) => (
           <button type="button" key={`${item.local}-${index}`} onClick={() => setActive(item)} aria-label={`Open ${title} image ${index + 1}`}>
             <img src={item.local} alt={`${title} — ${index + 1}`} loading="lazy" />
@@ -597,7 +598,7 @@ function SubHero({ page, navigate }) {
         <Breadcrumbs page={page} navigate={navigate} />
         <Eyebrow light>{page.eyebrow}</Eyebrow>
         <h1>{page.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
-        <p>PURIUM product and technology information, with exclusive global sales and distribution through Nova Solutions Tech.</p>
+        <p>{page.heroDescription || "PURIUM product and technology information, with exclusive global sales and distribution through Nova Solutions Tech."}</p>
       </div>
     </section>
   );
@@ -757,33 +758,117 @@ function TestReports({ page, navigate }) {
   );
 }
 
-function GenericPage({ page, navigate }) {
-  const isHistory = page.route === "/about/history";
-  const isMediaForward = page.media.length >= 6;
-  const contentParagraphs = page.paragraphs.filter(Boolean);
+const aboutRoleTitles = ["Global product access", "Commercial coordination", "Long-term customer support"];
+
+function AboutNova({ page, navigate }) {
   return (
     <>
-      <SubHero page={page} navigate={navigate} />
+      <SubHero page={{ ...page, title: "About Nova", media: [], heroDescription: "Nova connects PURIUM clean-air products and technology with customers and partners worldwide." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space about-nova-page">
+        <div className="page-shell">
+          <section className="about-nova-intro">
+            <div><Eyebrow>EXCLUSIVE GLOBAL PARTNER</Eyebrow><h2>{page.headings[0] || "Connecting PURIUM innovation with the world."}</h2></div>
+            <p>{page.headings[1] || "Nova Solutions Tech is PURIUM’s exclusive global sales and distribution partner."}</p>
+          </section>
+          <div className="about-role-grid">
+            {page.paragraphs.slice(0, 3).map((paragraph, index) => <article key={aboutRoleTitles[index]}><span>{String(index + 1).padStart(2, "0")}</span><h3>{aboutRoleTitles[index]}</h3><p>{paragraph}</p></article>)}
+          </div>
+          <section className="about-focus-band"><div><Eyebrow light>NOVA × PURIUM</Eyebrow><h2>Product expertise, global reach and one direct point of contact.</h2></div><SiteLink to="/contact/purchase" navigate={navigate} className="button light">Start a product inquiry <ArrowRight size={18} /></SiteLink></section>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+function VisionPage({ page, navigate }) {
+  const principles = page.headings.slice(1, 4).map((title, index) => ({ title, copy: page.paragraphs[index + 1] || "" }));
+  return (
+    <>
+      <SubHero page={{ ...page, title: "Vision", media: [], heroDescription: "A product-led vision for cleaner environments, responsible growth and dependable global support." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space vision-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="vision-intro"><Eyebrow>PRODUCT VISION</Eyebrow><h2>{page.headings[0]}</h2><p>{page.paragraphs[0]}</p></section>
+          <div className="vision-principles">
+            {principles.map((principle, index) => <article key={principle.title}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{principle.title}</h3><p>{principle.copy}</p></div></article>)}
+          </div>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+const historyYearSizes = [["2025", 6], ["2024", 6], ["2023", 5], ["2022", 9], ["2021", 5], ["2020", 6], ["2019", 6], ["2018", 6], ["2017", 4], ["2016", 2]];
+
+function groupHistoryItems(items) {
+  let offset = 0;
+  return historyYearSizes.map(([year, size]) => {
+    const entries = items.slice(offset, offset + size).map((item) => {
+      const lines = item.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+      return { month: lines[0], events: lines.slice(1) };
+    });
+    offset += size;
+    return { year, entries };
+  }).filter((group) => group.entries.length);
+}
+
+function HistoryPage({ page, navigate }) {
+  const years = groupHistoryItems(page.lists);
+  return (
+    <>
+      <SubHero page={{ ...page, title: "Milestones", media: [], heroDescription: "Selected PURIUM milestones that demonstrate product development, certification and market progress." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space history-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="history-intro"><div><Eyebrow>PROGRESS & INNOVATION</Eyebrow><h2>A decade of product development and recognition.</h2></div><p>Explore PURIUM milestones by year without the duplicated entries and oversized image archive.</p></section>
+          <div className="history-years">
+            {years.map((group, index) => <details key={group.year} open={index === 0}><summary><strong>{group.year}</strong><span>{group.entries.reduce((total, entry) => total + entry.events.length, 0)} milestones</span><ChevronDown size={22} /></summary><div className="history-year-content">{group.entries.map((entry, entryIndex) => <article key={`${entry.month}-${entryIndex}`}><span>{entry.month}</span><div>{entry.events.map((event) => <p key={event}>{event}</p>)}</div></article>)}</div></details>)}
+          </div>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+function isReadableMedia(item) {
+  return !/(icon|arrow|prev|next|download)/i.test(item?.local || item?.source || "");
+}
+
+function GenericPage({ page, navigate }) {
+  const visibleMedia = page.media.filter(isReadableMedia);
+  const isMediaForward = visibleMedia.length >= 6;
+  const contentParagraphs = page.paragraphs.filter(Boolean);
+  const displayHeadings = [...new Set(page.headings.filter(Boolean))];
+  const uniqueListItems = page.lists.filter((item) => !contentParagraphs.includes(item) && !/^\d+$/.test(item.trim()));
+  const documentGallery = /awards|certifications/.test(page.route);
+  return (
+    <>
+      <SubHero page={{ ...page, media: visibleMedia }} navigate={navigate} />
       <SectionNavigation page={page} navigate={navigate} />
       <main className="section-space">
         <div className="page-shell">
           <SourceNote page={page} />
 
-          {(contentParagraphs.length > 0 || page.headings.length > 0) && (
-            <div className={`editorial-layout ${isHistory ? "history-layout" : ""}`}>
+          {(contentParagraphs.length > 0 || displayHeadings.length > 0) && (
+            <div className="editorial-layout">
               <aside>
                 <Eyebrow>{page.category.toUpperCase()}</Eyebrow>
-                <h2>{page.headings[0] || page.title}</h2>
-                {page.headings.slice(1, 5).map((heading) => <span className="aside-kicker" key={heading}>{heading}</span>)}
+                <h2>{displayHeadings[0] || page.title}</h2>
+                {displayHeadings.slice(1, 5).map((heading) => <span className="aside-kicker" key={heading}>{heading}</span>)}
               </aside>
-              <article className={isHistory ? "timeline-copy" : "long-copy"}>
+              <article className="long-copy">
                 {contentParagraphs.map((paragraph, index) => (
-                  <div className={isHistory ? "timeline-entry" : "copy-block"} key={`${paragraph.slice(0, 35)}-${index}`}>
-                    {isHistory && <span>{String(index + 1).padStart(2, "0")}</span>}
+                  <div className="copy-block" key={`${paragraph.slice(0, 35)}-${index}`}>
                     <p>{paragraph}</p>
                   </div>
                 ))}
-                {page.lists.length > 0 && <ul className="captured-list">{page.lists.map((item, index) => <li key={`${item}-${index}`}>{item}</li>)}</ul>}
+                {uniqueListItems.length > 0 && <ul className="captured-list">{uniqueListItems.map((item, index) => <li key={`${item}-${index}`}>{item}</li>)}</ul>}
                 {page.tables.map((table, index) => <DataTable key={index} table={table} index={index} />)}
               </article>
             </div>
@@ -792,13 +877,13 @@ function GenericPage({ page, navigate }) {
           {isMediaForward && (
             <section className="page-gallery-section">
               <div className="gallery-heading"><Eyebrow>VISUAL LIBRARY</Eyebrow><h2>{page.title.replace(/\n/g, " ")}</h2></div>
-              <MediaGrid items={page.media} title={page.title.replace(/\n/g, " ")} />
+              <MediaGrid items={visibleMedia} title={page.title.replace(/\n/g, " ")} variant={documentGallery ? "documents" : ""} />
             </section>
           )}
 
-          {!isMediaForward && page.media.length > 0 && (
+          {!isMediaForward && visibleMedia.length > 0 && (
             <section className="page-gallery-section compact-gallery">
-              <MediaGrid items={page.media} title={page.title.replace(/\n/g, " ")} />
+              <MediaGrid items={visibleMedia} title={page.title.replace(/\n/g, " ")} variant={documentGallery ? "documents" : ""} />
             </section>
           )}
 
@@ -838,7 +923,7 @@ export function App() {
   const [siteContent, setSiteContent] = useState(() => normalizeContent(defaultSiteContent));
   const [adminEnabled, setAdminEnabled] = useState(false);
   const apiBase = `${BASE_PATH}/api`;
-  const pageMap = useMemo(() => new Map(pages.map((page) => {
+  const pageMap = useMemo(() => new Map(publicPages.map((page) => {
     const merged = mergePageContent(page, siteContent);
     return [merged.route, merged];
   })), [siteContent]);
@@ -866,7 +951,7 @@ export function App() {
   };
 
   const page = pageMap.get(path);
-  if (path === "/admin") return <Admin apiBase={apiBase} content={siteContent} onContent={(value) => setSiteContent(normalizeContent(value))} navigate={navigate} sourcePages={pages} />;
+  if (path === "/admin") return <Admin apiBase={apiBase} content={siteContent} onContent={(value) => setSiteContent(normalizeContent(value))} navigate={navigate} sourcePages={publicPages} />;
   let content;
   if (path === "/") content = <Home navigate={navigate} content={siteContent} />;
   else if (!page) content = <NotFound navigate={navigate} />;
@@ -875,6 +960,9 @@ export function App() {
   else if (path === "/technology/core") content = <CycloneTechnology page={page} navigate={navigate} />;
   else if (path === "/technology/patents") content = <PatentPortfolio page={page} navigate={navigate} />;
   else if (path === "/technology/test-reports") content = <TestReports page={page} navigate={navigate} />;
+  else if (path === "/about/company") content = <AboutNova page={page} navigate={navigate} />;
+  else if (path === "/about/vision") content = <VisionPage page={page} navigate={navigate} />;
+  else if (path === "/about/history") content = <HistoryPage page={page} navigate={navigate} />;
   else content = <GenericPage page={page} navigate={navigate} />;
 
   return (

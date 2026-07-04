@@ -18,3 +18,5 @@ When implementing from a selected generated mock, treat that image as the source
 - Keep editable public content in `src/data/site-content.json`; secure runtime edits, uploaded media, inquiries, and administrator credentials belong to the Node server and must never be committed.
 - Technical pages should favor structured data, readable evidence and a small number of purposeful high-resolution visuals; never turn source-site icons, arrows or tiny document scans into a large thumbnail wall.
 - When a source document is too small to remain legible at presentation size, keep it out of the hero and express its verified data in accessible HTML instead.
+- The About section is Nova-first: exclude PURIUM executive, registration, manufacturer-address, CI and character content; retain manufacturer milestones only when they support product credibility.
+- Body copy and navigation labels must use high-contrast text. Vision and History should use structured HTML layouts instead of decorative source graphics or duplicated content.
