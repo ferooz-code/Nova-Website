@@ -17,3 +17,4 @@ When implementing from a selected generated mock, treat that image as the source
 - Present Nova Solutions Tech as PURIUM's exclusive global sales and distribution partner and route all commercial, product, distribution, installation, and support inquiries through Nova.
 - Keep editable public content in `src/data/site-content.json`; secure runtime edits, uploaded media, inquiries, and administrator credentials belong to the Node server and must never be committed.
 - Technical pages should favor structured data, readable evidence and a small number of purposeful high-resolution visuals; never turn source-site icons, arrows or tiny document scans into a large thumbnail wall.
+- When a source document is too small to remain legible at presentation size, keep it out of the hero and express its verified data in accessible HTML instead.
