@@ -844,6 +844,153 @@ function SupplyCard({ row, image, number }) {
   return <article className="supply-card"><div className="supply-card-media"><img src={image?.local} alt={name} loading="lazy" /></div><div className="supply-card-copy"><span>{number}</span><h3>{name}</h3><ul>{details.map((detail) => <li key={detail}>{detail}</li>)}</ul></div></article>;
 }
 
+function ProductPackagePage({ page, navigate }) {
+  return (
+    <>
+      <SubHero page={{ ...page, media: [], heroDescription: "A clear, numbered view of the integrated components and optional modules inside a PURIUM Smart Safeguards Gate." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space package-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="package-intro"><div><Eyebrow>SYSTEM ANATOMY</Eyebrow><h2>Every component, matched to the product diagram.</h2></div><p>The numbered guide stays beside the exploded product view, so each description can be read in direct reference to the corresponding callout.</p></section>
+          <div className="package-layout">
+            <figure className="package-visual"><img src={page.media[0]?.local} alt="Exploded PURIUM product-package diagram with twenty numbered components" /></figure>
+            <ol className="package-parts">
+              {page.paragraphs.map((part, index) => <li key={part}><span>{String(index + 1).padStart(2, "0")}</span><p>{part}</p></li>)}
+            </ol>
+          </div>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+const careParagraphGroups = [[1, 2], [3, 4], [5, 6], [7, 8, 9], [10, 11], [12]];
+
+function CareServicePage({ page, navigate }) {
+  return (
+    <>
+      <SubHero page={{ ...page, media: [], heroDescription: "Inspection, updates, cleaning and consumables support presented as one clear recurring-care sequence." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space care-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="care-intro"><div><Eyebrow>MONTHLY CARE</Eyebrow><h2>Six services. Each image paired with its process.</h2></div><p>{page.paragraphs[0]}</p></section>
+          <div className="care-steps">
+            {page.headings.map((heading, index) => (
+              <article key={heading}>
+                <div className="care-step-media"><img src={page.media[index]?.local} alt={`${heading} care service`} loading="lazy" /></div>
+                <div className="care-step-copy"><span>CARE {String(index + 1).padStart(2, "0")}</span><h3>{heading}</h3>{careParagraphGroups[index].map((paragraphIndex) => <p key={paragraphIndex}>{page.paragraphs[paragraphIndex]}</p>)}</div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+function ProductOverviewPage({ page, navigate }) {
+  const modeCards = [
+    { number: "01", title: "AI disease control mode", description: page.paragraphs[1], image: page.media[0], items: page.lists.slice(0, 6), icons: page.media.slice(1, 7) },
+    { number: "02", title: page.headings[0], description: page.paragraphs[2], image: page.media[9], items: page.lists.slice(6, 8), icons: page.media.slice(7, 9) },
+  ];
+  return (
+    <>
+      <SubHero page={{ ...page, media: [], title: "Product overview", heroDescription: "Two operating modes and sixteen integrated product characteristics, organized with their corresponding visuals." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space product-overview-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="overview-intro"><div><Eyebrow>SMART SAFEGUARDS GATE</Eyebrow><h2>One system. Two operating modes.</h2></div><p>{page.paragraphs[0]}</p></section>
+          <div className="mode-grid">
+            {modeCards.map((mode) => <article key={mode.number}><div className="mode-visual"><img src={mode.image?.local} alt={`${mode.title} product view`} /></div><div className="mode-copy"><span>MODE {mode.number}</span><h3>{mode.title}</h3><p>{mode.description}</p><ul>{mode.items.map((item, index) => <li key={item}><img src={mode.icons[index]?.local} alt="" aria-hidden="true" /><span>{item}</span></li>)}</ul></div></article>)}
+          </div>
+          <section className="characteristics-section"><div className="characteristics-heading"><Eyebrow>PRODUCT CHARACTERISTICS</Eyebrow><h2>Technology, shown with the feature it supports.</h2></div><div className="characteristics-grid">{page.headings.slice(2).map((heading, index) => <article key={heading}><div className="characteristic-icon"><img src={page.media[index + 10]?.local} alt="" aria-hidden="true" /></div><span>{String(index + 1).padStart(2, "0")}</span><h3>{heading}</h3><p>{page.paragraphs[index + 3]}</p></article>)}</div></section>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+const lineupGroups = [
+  { title: "For large facilities", model: "PURIUM-10000-P / 10000-B", paragraph: 0, hero: 3, gallery: [0, 1, 2] },
+  { title: "For small facilities", model: "PURIUM-20000-B / 20010-B", paragraph: 1, hero: 4, gallery: [5, 6, 7] },
+  { title: "Special purpose products", model: "PURIUM-30010-P / 30020-P", paragraph: 2, hero: 11, gallery: [8, 9, 10] },
+  { title: "Walk-through products", model: "PURIUM-50000-P / 50000-B", paragraph: 3, hero: 12, gallery: [13, 14, 15] },
+  { title: "Indoor products — steel", model: "PURIUM-90000-B", paragraph: 4, hero: 20, gallery: [16, 17, 18, 19] },
+  { title: "Indoor products — cypress", model: "PURIUM-90000-P", paragraph: 5, hero: 30, gallery: [21, 22, 23, 24, 25, 26, 27, 28, 29] },
+  { title: "Advertising type", model: "PURIUM-30000-P", paragraph: 6, hero: 31, gallery: [32, 33, 34, 35, 36, 37, 38, 39, 40, 41] },
+];
+
+function ProductLineupPage({ page, navigate }) {
+  return (
+    <>
+      <SubHero page={{ ...page, media: [], title: "Product lineup", heroDescription: "Seven PURIUM product families, with each product view and installation set placed beside its intended application." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space lineup-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="lineup-intro"><div><Eyebrow>PRODUCT FAMILIES</Eyebrow><h2>Choose by environment, scale and purpose.</h2></div><p>Product photography, application guidance and installation examples now stay together in a single family section.</p></section>
+          <div className="lineup-groups">
+            {lineupGroups.map((group, index) => <article key={group.title} className="lineup-family"><div className="lineup-family-main"><div className="lineup-product-visual"><img src={page.media[group.hero]?.local} alt={`${group.title} — ${group.model}`} loading="lazy" /></div><div className="lineup-family-copy"><span>FAMILY {String(index + 1).padStart(2, "0")}</span><h2>{group.title}</h2><strong>{group.model}</strong><p>{page.paragraphs[group.paragraph]}</p></div></div><div className="lineup-installations"><div><Eyebrow>INSTALLATION EXAMPLES</Eyebrow><span>{group.gallery.length} views</span></div><div className="lineup-photo-grid">{group.gallery.map((mediaIndex, photoIndex) => <figure key={page.media[mediaIndex]?.local}><img src={page.media[mediaIndex]?.local} alt={`${group.title} installation example ${photoIndex + 1}`} loading="lazy" /></figure>)}</div></div></article>)}
+          </div>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+function ProductPortfolioPage({ page, navigate }) {
+  return (
+    <>
+      <SubHero page={{ ...page, media: [], heroDescription: "Product concepts grouped by the environments they are designed to serve." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space product-portfolio-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <section className="product-portfolio-intro"><img src={page.media[0]?.local} alt="PURIUM product portfolio" /><div><Eyebrow>CONCEPT PORTFOLIO</Eyebrow><h2>Five environments. Five focused product directions.</h2><p>Each concept title is now attached to its own visual set instead of separated from one large image gallery.</p></div></section>
+          <div className="product-portfolio-groups">{page.headings.map((heading, index) => <section key={heading}><header><img src={page.media[index + 1]?.local} alt="" aria-hidden="true" /><span>{String(index + 1).padStart(2, "0")}</span><h2>{heading}</h2></header><div>{page.media.slice(6 + index * 4, 10 + index * 4).map((item, photoIndex) => <figure key={item.local}><img src={item.local} alt={`${heading} product concept ${photoIndex + 1}`} loading="lazy" /></figure>)}</div></section>)}</div>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+function SpecificationPage({ page, navigate }) {
+  return (
+    <>
+      <SubHero page={{ ...page, media: [], heroDescription: "Product appearance, available finishes and technical specifications presented together." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space specification-page">
+        <div className="page-shell">
+          <SourceNote page={page} />
+          <div className="specification-layout"><figure><img src={page.media[0]?.local} alt={`${page.title.replace(/\n/g, " ")} product view`} /></figure><div><Eyebrow>PRODUCT SPECIFICATION</Eyebrow><h2>{page.title.replace(/\n/g, " ")}</h2>{page.paragraphs.length > 0 && <div className="finish-list">{page.paragraphs.map((finish) => <span key={finish}>{finish}</span>)}</div>}{page.tables.map((table, index) => <DataTable key={index} table={table} index={index} />)}</div></div>
+        </div>
+      </main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
+const environmentParagraphGroups = [[0], [1], [2], [3, 4]];
+
+function EnvironmentalPage({ page, navigate }) {
+  return (
+    <>
+      <SubHero page={{ ...page, media: [], heroDescription: "Environmental commitments presented with the source image that supports each initiative." }} navigate={navigate} />
+      <SectionNavigation page={page} navigate={navigate} />
+      <main className="section-space environmental-page"><div className="page-shell"><SourceNote page={page} /><div className="environmental-stories">{page.headings.map((heading, index) => <article key={heading}><div><img src={page.media[index]?.local} alt={heading.replace(/\n/g, " ")} loading="lazy" /></div><div><span>INITIATIVE {String(index + 1).padStart(2, "0")}</span><h2>{heading}</h2>{environmentParagraphGroups[index].map((paragraphIndex) => <p key={paragraphIndex}>{page.paragraphs[paragraphIndex]}</p>)}</div></article>)}</div></div></main>
+      <CallToAction navigate={navigate} />
+    </>
+  );
+}
+
 function SuppliesPage({ page, navigate }) {
   const consumables = page.tables[0]?.slice(1) || [];
   const accessories = page.tables[1]?.slice(1) || [];
@@ -1018,8 +1165,15 @@ export function App() {
   else if (path === "/about/company") content = <AboutNova page={page} navigate={navigate} />;
   else if (path === "/about/vision") content = <VisionPage page={page} navigate={navigate} />;
   else if (path === "/about/history") content = <HistoryPage page={page} navigate={navigate} />;
+  else if (path === "/products/overview") content = <ProductOverviewPage page={page} navigate={navigate} />;
+  else if (path === "/products/lineup") content = <ProductLineupPage page={page} navigate={navigate} />;
+  else if (path.startsWith("/products/specifications/")) content = <SpecificationPage page={page} navigate={navigate} />;
+  else if (path === "/products/package") content = <ProductPackagePage page={page} navigate={navigate} />;
+  else if (path === "/products/portfolio") content = <ProductPortfolioPage page={page} navigate={navigate} />;
   else if (path === "/products/supplies") content = <SuppliesPage page={page} navigate={navigate} />;
   else if (path === "/services/delivery") content = <DeliveryPage page={page} navigate={navigate} />;
+  else if (path === "/services/care") content = <CareServicePage page={page} navigate={navigate} />;
+  else if (path === "/sustainability/environment") content = <EnvironmentalPage page={page} navigate={navigate} />;
   else content = <GenericPage page={page} navigate={navigate} />;
 
   return (
