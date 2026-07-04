@@ -989,6 +989,9 @@ img { display: block; max-width: 100%; }
 .upload-drop input { position: absolute; opacity: 0; pointer-events: none; }
 .video-editor { display: grid; grid-template-columns: .8fr 1.4fr auto; gap: 8px; margin-bottom: 10px; }
 .video-editor button { border: 1px solid #d5dddf; background: #fff; color: #a03c3c; cursor: pointer; }
+.page-video-editor { margin-top: 30px; padding-top: 26px; border-top: 1px solid #dfe5e7; }
+.page-video-editor h3 { margin: 0 0 8px; font-size: 20px; }
+.page-video-editor > p { margin: 0 0 18px; color: #748287; font-size: 13px; line-height: 1.55; }
 .button.secondary { border: 1px solid #bfd0d5; background: #fff; color: #16333c; }
 .inquiry-list article { padding: 24px 0; border-top: 1px solid #dce3e5; }
 .inquiry-list article > div { display: flex; justify-content: space-between; gap: 18px; }

@@ -1111,7 +1111,7 @@ function NotFound({ navigate }) {
   );
 }
 
-function Footer({ navigate, content, adminEnabled }) {
+function Footer({ navigate, content }) {
   return (
     <footer className="site-footer">
       <div className="page-shell footer-main">
@@ -1120,7 +1120,7 @@ function Footer({ navigate, content, adminEnabled }) {
         <div><span className="footer-label">Support</span><SiteLink to="/services/care" navigate={navigate}>Care service</SiteLink><SiteLink to="/contact/service" navigate={navigate}>After-sales service</SiteLink><SiteLink to="/contact/purchase" navigate={navigate}>Purchase inquiry</SiteLink></div>
         <div><span className="footer-label">Nova headquarters</span><p>{content.contact.address.split("\n").map((line) => <span key={line}>{line}<br /></span>)}</p><a href={content.contact.website} target="_blank" rel="noreferrer">Nova website</a></div>
       </div>
-      <div className="page-shell footer-bottom"><span>© {new Date().getFullYear()} Nova Solutions Tech Inc.</span><span>Exclusive global sales & distribution partner for PURIUM</span><SiteLink to="/privacy" navigate={navigate}>Privacy policy</SiteLink>{adminEnabled && <SiteLink to="/admin" navigate={navigate}>Site admin</SiteLink>}</div>
+      <div className="page-shell footer-bottom"><span>© {new Date().getFullYear()} Nova Solutions Tech Inc.</span><span>Exclusive global sales & distribution partner for PURIUM</span><SiteLink to="/privacy" navigate={navigate}>Privacy policy</SiteLink><SiteLink to="/admin" navigate={navigate}>Site admin</SiteLink></div>
     </footer>
   );
 }
@@ -1128,7 +1128,6 @@ function Footer({ navigate, content, adminEnabled }) {
 export function App() {
   const [path, setPath] = useState(currentPath);
   const [siteContent, setSiteContent] = useState(() => normalizeContent(defaultSiteContent));
-  const [adminEnabled, setAdminEnabled] = useState(false);
   const apiBase = `${BASE_PATH}/api`;
   const pageMap = useMemo(() => new Map(publicPages.map((page) => {
     const merged = mergePageContent(page, siteContent);
@@ -1139,7 +1138,7 @@ export function App() {
     const controller = new AbortController();
     fetch(`${apiBase}/content`, { signal: controller.signal })
       .then((response) => response.ok ? response.json() : Promise.reject(new Error("Static deployment")))
-      .then((value) => { setSiteContent(normalizeContent(value)); setAdminEnabled(true); })
+      .then((value) => { setSiteContent(normalizeContent(value)); })
       .catch(() => {});
     return () => controller.abort();
   }, [apiBase]);
@@ -1185,7 +1184,7 @@ export function App() {
     <div className="app-shell">
       <Header path={path} navigate={navigate} content={siteContent} />
       {content}
-      <Footer navigate={navigate} content={siteContent} adminEnabled={adminEnabled} />
+      <Footer navigate={navigate} content={siteContent} />
     </div>
   );
 }

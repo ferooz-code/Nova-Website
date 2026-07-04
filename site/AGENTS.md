@@ -16,6 +16,7 @@ When implementing from a selected generated mock, treat that image as the source
 - Lead with PURIUM products and technology rather than manufacturer leadership or corporate personalities; do not reintroduce CEO-message content.
 - Present Nova Solutions Tech as PURIUM's exclusive global sales and distribution partner and route all commercial, product, distribution, installation, and support inquiries through Nova.
 - Keep editable public content in `src/data/site-content.json`; secure runtime edits, uploaded media, inquiries, and administrator credentials belong to the Node server and must never be committed.
+- The footer must always expose the Site admin route. GitHub Pages remains a read-only public build; secure sign-in, persistent text/photo/logo/video edits, uploads and inquiries require the included Node server or an equivalent server deployment with persistent storage.
 - Technical pages should favor structured data, readable evidence and a small number of purposeful high-resolution visuals; never turn source-site icons, arrows or tiny document scans into a large thumbnail wall.
 - When a source document is too small to remain legible at presentation size, keep it out of the hero and express its verified data in accessible HTML instead.
 - The About section is Nova-first: exclude PURIUM executive, registration, manufacturer-address, CI and character content; retain manufacturer milestones only when they support product credibility.
