@@ -2,7 +2,9 @@
   "brand": {
     "name": "Nova Solutions Tech",
     "partnerLabel": "EXCLUSIVE GLOBAL SALES & DISTRIBUTION PARTNER FOR PURIUM",
-    "logo": "/media/nova/nova-tech-9-2-37be98d5d1680b66.png",
+    "logo": "/media/nova/nova-solutions-icon-dark.png",
+    "logoDark": "/media/nova/nova-solutions-logo-dark.png",
+    "logoLight": "/media/nova/nova-solutions-logo-light.png",
     "parentCompanyLabel": "Visit PURIUM corporate website",
     "parentCompanyUrl": "https://purium.kr/en/index.php"
   },

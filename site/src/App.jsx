@@ -201,8 +201,8 @@ function Header({ path, navigate, content }) {
       <SiteLink to="/" navigate={navigate} className="brand" onClick={() => setMobileOpen(false)}>
         <img src={resolveAsset(content.brand.logo) || ASSETS.novaLogo} alt={content.brand.name} />
         <span>
-          <strong>{content.brand.partnerLabel.replace(/\s+FOR\s+PURIUM$/i, "")}</strong>
-          <small>FOR PURIUM</small>
+          <strong>{content.brand.name.replace(/\s+Tech$/i, "")}</strong>
+          <small>TECH</small>
         </span>
       </SiteLink>
 
@@ -231,9 +231,10 @@ function Header({ path, navigate, content }) {
         })}
       </nav>
 
-      <SiteLink to="/contact/purchase" navigate={navigate} className="header-cta">
-        Inquire <ArrowUpRight size={16} />
-      </SiteLink>
+      <div className="header-actions">
+        <SiteLink to="/admin" navigate={navigate} className="admin-login-link"><ShieldCheck size={15} /> Admin Login</SiteLink>
+        <SiteLink to="/contact/purchase" navigate={navigate} className="header-cta">Inquire <ArrowUpRight size={16} /></SiteLink>
+      </div>
 
       <button
         type="button"
@@ -270,6 +271,9 @@ function Header({ path, navigate, content }) {
         ))}
         <SiteLink to="/contact/purchase" navigate={navigate} className="mobile-inquire">
           Start an inquiry <ArrowRight size={18} />
+        </SiteLink>
+        <SiteLink to="/admin" navigate={navigate} className="mobile-admin-login">
+          <ShieldCheck size={17} /> Admin login
         </SiteLink>
       </div>}
     </header>
@@ -1115,12 +1119,12 @@ function Footer({ navigate, content }) {
   return (
     <footer className="site-footer">
       <div className="page-shell footer-main">
-        <div className="footer-brand"><img src={resolveAsset(content.brand.logo) || ASSETS.novaLogo} alt={content.brand.name} /><p>Exclusive global sales and distribution partner for PURIUM clean-air products and Smart Safeguards Gate technology.</p><a className="parent-company-link" href={content.brand.parentCompanyUrl} target="_blank" rel="noreferrer">{content.brand.parentCompanyLabel}<ArrowUpRight size={14} /></a></div>
+        <div className="footer-brand"><img src={resolveAsset(content.brand.logoDark || content.brand.logo) || ASSETS.novaLogo} alt={content.brand.name} /><p>Exclusive global sales and distribution partner for PURIUM clean-air products and Smart Safeguards Gate technology.</p><a className="parent-company-link" href={content.brand.parentCompanyUrl} target="_blank" rel="noreferrer">{content.brand.parentCompanyLabel}<ArrowUpRight size={14} /></a></div>
         <div><span className="footer-label">Explore</span><SiteLink to="/products/overview" navigate={navigate}>Products</SiteLink><SiteLink to="/technology/core" navigate={navigate}>Technology</SiteLink><SiteLink to="/installations/7" navigate={navigate}>Installations</SiteLink></div>
         <div><span className="footer-label">Support</span><SiteLink to="/services/care" navigate={navigate}>Care service</SiteLink><SiteLink to="/contact/service" navigate={navigate}>After-sales service</SiteLink><SiteLink to="/contact/purchase" navigate={navigate}>Purchase inquiry</SiteLink></div>
         <div><span className="footer-label">Nova headquarters</span><p>{content.contact.address.split("\n").map((line) => <span key={line}>{line}<br /></span>)}</p><a href={content.contact.website} target="_blank" rel="noreferrer">Nova website</a></div>
       </div>
-      <div className="page-shell footer-bottom"><span>© {new Date().getFullYear()} Nova Solutions Tech Inc.</span><span>Exclusive global sales & distribution partner for PURIUM</span><SiteLink to="/privacy" navigate={navigate}>Privacy policy</SiteLink><SiteLink to="/admin" navigate={navigate}>Site admin</SiteLink></div>
+      <div className="page-shell footer-bottom"><span>© {new Date().getFullYear()} Nova Solutions Tech Inc.</span><span>Exclusive global sales & distribution partner for PURIUM</span><SiteLink to="/privacy" navigate={navigate}>Privacy policy</SiteLink><SiteLink to="/admin" navigate={navigate}>Admin login</SiteLink></div>
     </footer>
   );
 }
