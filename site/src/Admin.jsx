@@ -158,11 +158,19 @@ export function Admin({ apiBase, content, onContent, navigate, sourcePages }) {
           <span>NOVA CONTENT STUDIO</span>
           <h1>Website administration</h1>
           <p>Manage Nova messaging, product pages, brand media, videos and incoming inquiries.</p>
-          {!backendAvailable && <div className="admin-warning">This GitHub Pages copy is read-only. Use the full Nova server deployment to sign in, save edits and upload media securely.</div>}
-          <Field label="Username"><input name="username" autoComplete="username" required /></Field>
-          <Field label="Password"><input name="password" type="password" autoComplete="current-password" required /></Field>
-          {loginError && <div className="admin-error">{loginError}</div>}
-          <button className="button primary" type="submit">Sign in</button>
+          {!backendAvailable ? (
+            <>
+              <div className="admin-warning">GitHub Pages cannot authenticate or save website changes. Open the secure Nova Admin Studio running on this computer.</div>
+              <a className="button primary admin-local-link" href="http://127.0.0.1:8787/admin">Open secure Admin Studio</a>
+            </>
+          ) : (
+            <>
+              <Field label="Username"><input name="username" autoComplete="username" required /></Field>
+              <Field label="Password"><input name="password" type="password" autoComplete="current-password" required /></Field>
+              {loginError && <div className="admin-error">{loginError}</div>}
+              <button className="button primary" type="submit">Sign in</button>
+            </>
+          )}
         </form>
       </div>
     );
